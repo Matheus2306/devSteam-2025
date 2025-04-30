@@ -16,7 +16,8 @@ body {
 }
 
 .promoCard {
-  width: 280px;
+  width: 100%;
+  max-width: 320px;
   transition: transform 0.2s;
   background: linear-gradient(to bottom, #19587b, #2b87ae);
 }
@@ -44,4 +45,81 @@ body {
 
 input.form-control:focus {
   box-shadow: none;
+}
+.cards {
+  width: 100%;
+  max-width: 320px;
+  transition: transform 0.2s;
+  background: linear-gradient(to bottom, #19587b, #2b87ae);
+}
+
+.gradient-card {
+  width: 100%;
+  max-width: 320px;
+  background: linear-gradient(to bottom, #19587b, #2b87ae);
+  transition: transform 0.2s;
+}
+
+.gradient-card:hover {
+  transform: scale(1.03);
+}
+
+.button {
+  background-color: #4c6b22;
+  color: #beeb14;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #547625;
+  transform: scale(1.03);
+}
+
+.button:disabled {
+  background-color: #4c6b22;
+  cursor: not-allowed;
+}
+
+.price-card {
+  background-color: #344654; /* Alterado de #2a475e para #344654 */
+  color: #d7d7d7;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.price-card .corValor {
+  color: #beeb14;
+  font-size: 1.2rem;
+}
+
+.price-card.gratis {
+  background-color: #344654; /* Alterado de #4c6b22 para #344654 */
+  color: #beeb14;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .gameCard,
+  .promoCard,
+  .cards,
+  .gradient-card {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 576px) {
+  .gameCard,
+  .promoCard,
+  .cards,
+  .gradient-card {
+    max-width: 240px;
+  }
 }

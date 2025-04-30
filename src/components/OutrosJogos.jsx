@@ -11,8 +11,6 @@ const OutrosJogos = () => {
         desconto: 0,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg",
-        descricao:
-          "O clássico FPS competitivo retorna com gráficos renovados e jogabilidade ainda mais precisa. Perfeito para amantes de tiro tático.",
         categoria: "FPS",
       },
       {
@@ -22,8 +20,6 @@ const OutrosJogos = () => {
         desconto: 20,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg",
-        descricao:
-          "Explore Night City como um mercenário em um futuro distópico, com narrativa profunda e visuais impressionantes.",
         categoria: "RPG de Ação",
       },
       {
@@ -33,8 +29,6 @@ const OutrosJogos = () => {
         desconto: 35,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg",
-        descricao:
-          "Uma aventura épica em mundo aberto criada por Hidetaka Miyazaki e George R. R. Martin. Desafios intensos e lore profundo.",
         categoria: "RPG",
       },
       {
@@ -44,8 +38,6 @@ const OutrosJogos = () => {
         desconto: 40,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",
-        descricao:
-          "Viva o Velho Oeste como Arthur Morgan em uma jornada cinematográfica com detalhes incríveis e mundo vivo.",
         categoria: "Ação e Aventura",
       },
       {
@@ -55,8 +47,6 @@ const OutrosJogos = () => {
         desconto: 10,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg",
-        descricao:
-          "Mergulhe no mundo bruxo de Hogwarts no século XIX. Crie seu próprio bruxo e descubra segredos mágicos.",
         categoria: "RPG de Ação",
       },
       {
@@ -66,8 +56,6 @@ const OutrosJogos = () => {
         desconto: 60,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg",
-        descricao:
-          "Acompanhe Geralt de Rívia em sua busca épica por Ciri. Combate envolvente, escolhas impactantes e um dos melhores RPGs já feitos.",
         categoria: "RPG",
       },
       {
@@ -77,8 +65,6 @@ const OutrosJogos = () => {
         desconto: 25,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg",
-        descricao:
-          "Kratos retorna em uma jornada emocional com seu filho Atreus. Uma releitura nórdica da lenda do Deus da Guerra.",
         categoria: "Ação e Aventura",
       },
       {
@@ -88,8 +74,6 @@ const OutrosJogos = () => {
         desconto: 15,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/2195250/header.jpg",
-        descricao:
-          "O mais recente simulador de futebol da EA Sports, com gráficos realistas e modo carreira renovado.",
         categoria: "Esportes",
       },
     ],
@@ -101,9 +85,18 @@ const OutrosJogos = () => {
       <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
         Outros Jogos
       </h2>
-      <div id="itensJogos" className="d-flex flex-column ms-md-5 ps-md-3 gap-4">
+      <div id="itensJogos" className="row g-4">
         {games.map((item) => (
-          <GameCard key={item.id} id={item.id} />
+          <div key={item.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
+            <GameCard
+              id={item.id}
+              titulo={item.titulo}
+              preco={item.preco}
+              desconto={item.desconto}
+              imagem={item.imagem}
+              categoria={item.categoria}
+            />
+          </div>
         ))}
       </div>
     </div>
