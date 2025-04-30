@@ -14,9 +14,9 @@ const Header = (props) => {
       <div id="info" className="d-flex gap-5 w-50 justify-content-between">
         <div id="logo" role="button" className="d-flex align-items-center me-5">
           <img
-            src="src/assets/Ratzomne_1.png"
+            src="src/img/Ratzomne_1.png"
             alt=""
-            style={{ width: "74px", height: "74px" }}
+            style={{ width: "75px", height: "75px" }}
           />
           <span className="navbar-brand fw-bold fs-3">RatZone</span>
         </div>
