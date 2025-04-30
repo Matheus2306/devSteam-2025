@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 const Header = (props) => {
-  const [usuario, setUsuario] = useState(null);
+  const [usuario, setUsuario] = useState();
+
+ 
 
   useEffect(() => {
     const salvaUsuario = localStorage.getItem("devlogin");
