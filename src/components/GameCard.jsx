@@ -7,6 +7,8 @@ const GameCard = ({ titulo, preco, imagem, categoria, descricao, onAddCarrinho }
         titulo,
         preco,
         imagem,
+        categoria,
+        descricao,
       });
     }
   };

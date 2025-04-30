@@ -65,7 +65,7 @@ function App() {
         onUpdateCarrinho={handleUpdateCarrinho}
         carrinhoItem={carrinhoItem}
       />
-      <OutrosJogos />
+      <OutrosJogos onAddCarrinho={handleAddCarrinho} />
       <Footer/>
     </>
   );
