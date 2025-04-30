@@ -1,10 +1,21 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router";
 
 const PromoCard = (props) => {
   const precoComDesconto = props.preco - (props.preco * props.desconto) / 100;
+  const navigate = useNavigate();
+
+  const GoToDescription = () => {
+    navigate("/GameDescription")
+  }
 
   return (
-    <div id="PromoCard" className="promoCard card border-0 overflow-hidden">
+    <div
+      id="PromoCard"
+      className="promoCard card border-0 overflow-hidden"
+      onClick={GoToDescription} //adicionando a ação de click para +1 item de jogo no carrinho
+
+>
       <img
         className="card-img-top object-fit-cover"
         src={props.imagem}
@@ -44,6 +55,7 @@ const PromoCard = (props) => {
           Adicionar ao carrinho
         </button>
       </div>
+  
     </div>
   );
 };
