@@ -1,7 +1,7 @@
 import React from "react";
 import GameCard from "./GameCard";
 
-const OutrosJogos = () => {
+const OutrosJogos = ({ onAddCarrinho }) => {
   const games = React.useMemo(
     () => [
       {
@@ -95,6 +95,7 @@ const OutrosJogos = () => {
               desconto={item.desconto}
               imagem={item.imagem}
               categoria={item.categoria}
+              onAddCarrinho={() => onAddCarrinho(item)}
             />
           </div>
         ))}
