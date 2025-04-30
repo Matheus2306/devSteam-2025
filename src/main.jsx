@@ -22,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/checkout" element={<Checkout />} />
+          
         </Routes>
       </BrowserRouter>
     </GlobalContext.Provider>
