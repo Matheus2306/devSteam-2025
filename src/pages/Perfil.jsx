@@ -102,7 +102,6 @@ const Perfil = () => {
         ultimaVezJogado: "Ontem",
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg",
-        categoria: "FPS",
       },
       {
         id: 2,
