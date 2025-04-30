@@ -13,7 +13,11 @@ const Header = (props) => {
     <header className="pt-4 w-100 navbar navbar-dark bg-dark justify-content-around align-items-center">
       <div id="info" className="d-flex gap-5 w-50 justify-content-between">
         <div id="logo" role="button" className="d-flex align-items-center me-5">
-          <i className="bi bi-controller fs-1 text-light me-3"></i>
+          <img
+            src="src/assets/Ratzomne_1.png"
+            alt=""
+            style={{ width: "74px", height: "74px" }}
+          />
           <span className="navbar-brand fw-bold fs-3">RatZone</span>
         </div>
 

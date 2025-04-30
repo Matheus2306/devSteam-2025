@@ -1,19 +1,92 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import GameCard from "../components/GameCard";
+import Footer from "../components/Footer";
 
 const Perfil = () => {
   const [randomGames, setRandomGames] = useState([]);
 
   const friends = [
     {
-      name: "Brr Brr Patapim",
+      name: "Alex Thunder",
       status: "On-line",
-      game: "COUNTER STRIKE 2",
+      game: "Fortnite",
       picture: "https://placehold.co/74x74",
     },
     {
-      name: "Dhroko",
+      name: "Mia Spark",
+      status: "Off-line",
+      game: "",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "John Blaze",
+      status: "On-line",
+      game: "Call of Duty",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Sophia Light",
+      status: "Off-line",
+      game: "",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Ethan Storm",
+      status: "On-line",
+      game: "Apex Legends",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Olivia Frost",
+      status: "Off-line",
+      game: "",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Liam Shadow",
+      status: "On-line",
+      game: "Valorant",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Emma Flame",
+      status: "Off-line",
+      game: "",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Noah Blaze",
+      status: "On-line",
+      game: "Overwatch",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Ava Moon",
+      status: "Off-line",
+      game: "",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Lucas Frost",
+      status: "On-line",
+      game: "League of Legends",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Isabella Star",
+      status: "Off-line",
+      game: "",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Mason Knight",
+      status: "On-line",
+      game: "PUBG",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Charlotte Sky",
       status: "Off-line",
       game: "",
       picture: "https://placehold.co/74x74",
@@ -93,17 +166,27 @@ const Perfil = () => {
 
   useEffect(() => {
     const shuffledGames = [...games].sort(() => 0.5 - Math.random());
-    setRandomGames(shuffledGames.slice(0, 4));
+    setRandomGames(shuffledGames.slice(0, 6)); // Alterado para 6 jogos
   }, [games]);
 
   return (
     <>
       <Header />
-      <div className="container py-5 w-50 d-flex align-items-start">
+      <div className="container py-5 w-100 d-flex align-items-start">
         <img src="https://placehold.co/100x100" alt="" className="me-3" />
         <div>
           <h2>
-            kenna <i className="bi bi-caret-down-fill"></i>
+            kenna
+            <button
+              className="btn btn-link"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseExample"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              <i className="bi bi-caret-down-fill"></i>
+            </button>
           </h2>
           <p>🇺🇾 Montevideo, Urugay</p>
         </div>
@@ -111,16 +194,22 @@ const Perfil = () => {
       <div className="d-flex justify-content-start flex-column align-items-start gap-5">
         <div
           id="amigos"
-          className=" py-5 w-50 bg-dark d-flex flex-column align-items-start m-5"
+          className="py-5 w-100 bg-dark d-flex flex-column align-items-start m-5"
         >
           <h2 className="text-center text-light w-100">Amigos:</h2>
-          <div className="w-100 d-flex flex-column align-items-center">
+          <div className="w-100 d-flex flex-wrap gap-3">
             {friends.map((friend, index) => (
               <div
                 key={index}
-                className="w-75 card text-light bg-black p-3 mb-3 d-flex align-items-center"
+                className="card text-light bg-black p-3 d-flex flex-row align-items-center"
+                style={{ width: "300px" }}
               >
-                <img src={friend.picture} alt="" className="me-3" />
+                <img
+                  src={friend.picture}
+                  alt=""
+                  className="me-3"
+                  style={{ width: "74px", height: "74px", objectFit: "cover" }}
+                />
                 <div className="d-flex flex-column">
                   <p className="mb-1">{friend.name}</p>
                   <p
@@ -142,10 +231,17 @@ const Perfil = () => {
           <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
             Seus Jogos:
           </h2>
-          <div id="itensJogos" className="row g-4">
+          <div
+            id="itensJogos"
+            className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4"
+          >
             {randomGames.map((item) => (
-              <div key={item.id} className=" col-12 col-sm-6 col-md-4 col-lg-3">
-                <div className="d-flex card bg-dark text-light p-3">
+              <div
+                id="cardsJogos"
+                key={item.id}
+                className="d-flex flex-column justify-content-end col"
+              >
+                <div className="d-flex flex-column justify-content-end card bg-dark text-light p-3">
                   <img
                     src={item.imagem}
                     alt={item.titulo}
@@ -165,6 +261,8 @@ const Perfil = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
