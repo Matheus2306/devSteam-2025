@@ -55,42 +55,6 @@ const Perfil = () => {
       game: "",
       picture: "https://placehold.co/74x74",
     },
-    {
-      name: "Noah Blaze",
-      status: "On-line",
-      game: "Overwatch",
-      picture: "https://placehold.co/74x74",
-    },
-    {
-      name: "Ava Moon",
-      status: "Off-line",
-      game: "",
-      picture: "https://placehold.co/74x74",
-    },
-    {
-      name: "Lucas Frost",
-      status: "On-line",
-      game: "League of Legends",
-      picture: "https://placehold.co/74x74",
-    },
-    {
-      name: "Isabella Star",
-      status: "Off-line",
-      game: "",
-      picture: "https://placehold.co/74x74",
-    },
-    {
-      name: "Mason Knight",
-      status: "On-line",
-      game: "PUBG",
-      picture: "https://placehold.co/74x74",
-    },
-    {
-      name: "Charlotte Sky",
-      status: "Off-line",
-      game: "",
-      picture: "https://placehold.co/74x74",
-    },
   ];
 
   const games = React.useMemo(
@@ -164,14 +128,19 @@ const Perfil = () => {
   );
 
   useEffect(() => {
-    const shuffledGames = [...games].sort(() => 0.5 - Math.random());
-    setRandomGames(shuffledGames.slice(0, 6)); // Alterado para 6 jogos
+    const sortedGames = [...games].sort(
+      (a, b) => parseInt(b.tempoDeJogo) - parseInt(a.tempoDeJogo)
+    );
+    const topGames = sortedGames.slice(0, 2); // Fixar os 2 mais jogados
+    const remainingGames = sortedGames.slice(2);
+    const shuffledGames = [...remainingGames].sort(() => 0.5 - Math.random());
+    setRandomGames([...topGames, ...shuffledGames.slice(0, 2)]); // Adicionar 2 sorteados
   }, [games]);
 
   return (
     <>
       <Header />
-      <div className="container py-5 w-100 d-flex align-items-start">
+      <div className="container py-5 w-100 d-flex align-items-start m-5">
         <img src="https://placehold.co/100x100" alt="" className="me-3" />
         <div>
           <h2>
@@ -190,13 +159,10 @@ const Perfil = () => {
           <p>🇺🇾 Montevideo, Urugay</p>
         </div>
       </div>
-      <div className="d-flex justify-content-start flex-column align-items-start gap-5">
-        <div
-          id="amigos"
-          className="py-5 w-100 bg-dark d-flex flex-column align-items-start m-5"
-        >
+      <div className="d-flex justify-content-start d-flex gap-5">
+        <div id="amigos" className="container py-5 w-50 bg-dark m-5">
           <h2 className="text-center text-light w-100">Amigos:</h2>
-          <div className="w-100 d-flex flex-wrap gap-3">
+          <div className=" px-3 w-100 d-flex flex-wrap gap-3 m-5 py-5">
             {friends.map((friend, index) => (
               <div
                 key={index}
@@ -232,7 +198,7 @@ const Perfil = () => {
           </h2>
           <div
             id="itensJogos"
-            className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4"
+            className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 g-4"
           >
             {randomGames.map((item) => (
               <div
