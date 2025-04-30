@@ -45,3 +45,20 @@ body {
 input.form-control:focus {
   box-shadow: none;
 }
+
+.buttons {
+  color: #67c1f5;
+  background: rgba(65, 122, 155, 0.5);
+}
+.buttons:hover {
+  background: rgba(65, 122, 155, 0.7);
+}
+.bg_gradient {
+  background: linear-gradient(90deg, #beeb14 1%, #6c850b 100%);
+}
+.buy {
+  background: linear-gradient(90deg, #2d3b4a 0%, #3d4f63 100%);
+}
+.gradientFundo {
+  background: linear-gradient(180deg, rgba(76, 113, 158, 0.3) 0%, rgba(27, 40, 56, 0.7) 100%);
+}
