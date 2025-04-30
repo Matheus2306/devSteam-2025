@@ -12,7 +12,12 @@ const Header = (props) => {
   return (
     <header className="pt-4 w-100 navbar navbar-dark bg-dark justify-content-around align-items-center">
       <div id="info" className="d-flex gap-5 w-50 justify-content-between">
-        <div id="logo" role="button" className="d-flex align-items-center me-5">
+        <div
+          id="logo"
+          role="button"
+          className="d-flex align-items-center me-5"
+          onClick={() => (window.location.href = "/")}
+        >
           <img
             src="src/img/Ratzomne_1.png"
             alt=""

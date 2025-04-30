@@ -25,7 +25,7 @@ const Footer = () => {
 
        
         <div>
-          <img src="/logo.png" alt="Logo" className="img-fluid" style={{ width: '50px', height: '50px' }} />
+          <img src="src/img/Ratzomne_1.png" alt="Logo" className="img-fluid" style={{ width: '74px', height: '74px' }} />
         </div>
       </div>
     </footer>
