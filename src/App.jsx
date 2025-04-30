@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Promotion from "./components/Promotion";
 import CarrinhoOffCanvas from "./components/CarrinhoOffCanvas";
 import OutrosJogos from "./components/OutrosJogos";
+import Footer from "./components/Footer";
 
 function App() {
   const [carrinhoItem, setCarrinhoItem] = useState([]);
@@ -64,7 +65,7 @@ function App() {
         onUpdateCarrinho={handleUpdateCarrinho}
         carrinhoItem={carrinhoItem}
       />
-      <OutrosJogos onAddCarrinho={handleAddCarrinho} />
+      <OutrosJogos />
     </>
   );
 }
