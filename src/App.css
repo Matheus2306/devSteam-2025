@@ -123,3 +123,12 @@ input.form-control:focus {
     max-width: 240px;
   }
 }
+.card {
+  background-color: #344654 !important;
+  border: none;
+}
+#amigos {
+  background-color: #343a40; /* Dark background color */
+  border-radius: 8px;
+  padding: 20px;
+}
