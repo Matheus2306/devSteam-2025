@@ -50,7 +50,7 @@ const GameDescription = () => {
             </span>
             <hr />
           </div>
-          <div className="col-md-6 d-flex flex-column justify-content-center z-2">
+          <div className="col-md-6 d-flex flex-column z-2">
             {/* Carrossel de imagens */}
             <Caroucel imagem={CardItem.imagem} />
             <div className="my-3">
@@ -94,6 +94,7 @@ const GameDescription = () => {
           </div>
         </div>
       </div>
+      <Footer z=""/>
     </div>
   );
 };

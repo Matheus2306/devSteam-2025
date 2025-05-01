@@ -19,7 +19,7 @@ body {
   width: 100%;
   max-width: 320px;
   transition: transform 0.2s;
-  background: linear-gradient(to bottom, #19587b, #2b87ae);
+  background: linear-gradient(180deg, #2b87ae 10%,  #19587b 100%);
 }
 
 .promoCard:hover {

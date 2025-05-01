@@ -28,7 +28,7 @@ const PromoCard = (props) => {
     <div
       id="PromoCard"
       className="promoCard card border-0 overflow-hidden"
-      onClick={GoToDescription}
+
     >
       <img
         className="card-img-top object-fit-cover"
@@ -65,6 +65,7 @@ const PromoCard = (props) => {
           <i className="bi bi-cart-plus me-2"></i>
           Adicionar ao carrinho
         </button>
+        <span onClick={GoToDescription} role="button" className="mt-1 mx-2 text-decoration-underline text-info">Saiba Mais</span>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const GameValor = (props) => {
     <div className="w-100 position-relative buy p-3 rounded-1 mb-4">
       <p>{props.titulo || "Título do jogo"}</p>
       <div className="d-flex justify-content-end align-items-end">
-        <div className="btn bg-black p-1 top-50 position-absolute d-flex gap-2 align-items-center">
+        <div className="rounded-1 bg-black p-2 top-50 position-absolute d-flex gap-2 align-items-center">
           {/* Exibe o preço original riscado, se houver desconto */}
           {props.desconto > 0 && (
             <div className="d-flex align-items-center gap-2">
@@ -25,7 +25,7 @@ const GameValor = (props) => {
           <span className="h6 m-0 text-light">
             {formatarMoeda(precoComDesconto)}
           </span>
-          <span className="p-2 bg_gradient rounded-1 text-light d-flex gap-1">
+          <span role="button" className="p-2 bg_gradient rounded-1 text-light d-flex gap-1">
             <i className="bi bi-plus"></i>
             Carrinho
           </span>
