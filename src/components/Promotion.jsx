@@ -86,7 +86,7 @@ const Promotion = (props) => {
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg",
         descricao:
           "Kratos retorna em uma jornada emocional com seu filho Atreus. Uma releitura nórdica da lenda do Deus da Guerra.",
-        categoria: "Ação e Aventura",
+        categoria: ["Ação e Aventura","Fantasia"],
       },
       {
         id: 8,
@@ -133,6 +133,8 @@ const Promotion = (props) => {
             imagem={jogo.imagem}
             formatarMoeda={formatarMoeda} // Passando a função para o PromoCard
             onAddCarrinho={() => props.onAddCarrinho(jogo)}
+            categoria={jogo.categoria}
+            descricao={jogo.descricao}
           />
           
         ))}

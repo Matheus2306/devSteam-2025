@@ -10,6 +10,11 @@ const GameDescription = () => {
   const { state } = useLocation();
   const [CardItem, setCardItem] = useState(state?.jogo || {});
 
+  // Garante que categoria seja um array
+  const Arraycate = Array.isArray(CardItem.categoria)
+    ? CardItem.categoria
+    : [CardItem.categoria].filter((categoria) => categoria); // Filtra valores inválidos
+
   useEffect(() => {
     localStorage.setItem("PromoCard", JSON.stringify(CardItem));
   }, [CardItem]);
@@ -19,8 +24,11 @@ const GameDescription = () => {
     salvaCarrinho && setCardItem(JSON.parse(salvaCarrinho));
   }, []);
 
-  const primeiraImagem = Array.isArray(CardItem.imagem) ? CardItem.imagem[0] : CardItem.imagem;
+  const primeiraImagem = Array.isArray(CardItem.imagem)
+    ? CardItem.imagem[0]
+    : CardItem.imagem;
 
+  console.log(Arraycate);
 
   return (
     <div className="w-100 h-100">
@@ -43,23 +51,23 @@ const GameDescription = () => {
             <hr />
           </div>
           <div className="col-md-6 d-flex flex-column justify-content-center z-2">
-            {/* a qui vai o carrocel de imagens */}
-            <Caroucel imagem={CardItem.imagem}/>
+            {/* Carrossel de imagens */}
+            <Caroucel imagem={CardItem.imagem} />
             <div className="my-3">
               <button className="btn text-light d-flex gap-2 buttons">
                 <i className="bi bi-plus"></i>
                 <span>Lista de Desejos</span>
               </button>
             </div>
-            <GameValor titulo={CardItem.titulo} valor={CardItem.preco} desconto={CardItem.desconto}/>
+            <GameValor
+              titulo={CardItem.titulo}
+              valor={CardItem.preco}
+              desconto={CardItem.desconto}
+            />
           </div>
           <div className="col-md d-flex flex-column z-2">
             <div>
-              <img
-                src={primeiraImagem }
-                className="img-fluid w-100"
-                alt=""
-              />
+              <img src={primeiraImagem} className="img-fluid w-100" alt="" />
             </div>
             <div className="text-light h5 mt-3">
               <p>{CardItem.descricao || "Descrição do jogo"}</p>
@@ -76,9 +84,9 @@ const GameDescription = () => {
                 <div className="d-flex flex-column gap-2">
                   <span>Marcadores populares para esse produto:</span>
                   <div className="d-flex flex-wrap gap-2">
-                    <MarcadorCategoria />
-                    <MarcadorCategoria />
-                    <MarcadorCategoria />
+                    {Arraycate.map((categoria, index) => (
+                      <MarcadorCategoria key={index} categoria={categoria} />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -86,7 +94,6 @@ const GameDescription = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

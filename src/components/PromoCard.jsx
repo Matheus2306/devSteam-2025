@@ -15,6 +15,8 @@ const PromoCard = (props) => {
       imagem: props.imagem, // Passa o array completo para a próxima página
       preco: props.preco,
       desconto: props.desconto,
+      descricao: props.descricao,
+      categoria: props.categoria,
     };
   };
 
