@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Header from "../components/Header";
 import MarcadorCategoria from "../components/MarcadorCategoria";
 import Footer from "../components/Footer";
@@ -9,6 +9,11 @@ import Caroucel from "../components/Caroucel";
 const GameDescription = () => {
   const { state } = useLocation();
   const [CardItem, setCardItem] = useState(state?.jogo || {});
+  const navigate = useNavigate();
+
+  const voltar = () => {
+    navigate(-1);
+  }
 
   // Garante que categoria seja um array
   const Arraycate = Array.isArray(CardItem.categoria)
@@ -30,6 +35,7 @@ const GameDescription = () => {
 
   console.log(Arraycate);
 
+
   return (
     <div className="w-100 h-100">
       <Header />
@@ -45,9 +51,12 @@ const GameDescription = () => {
       <div className="container">
         <div className="row my-5 gap-5">
           <div className="my-3 z-2">
-            <span className="fs-2 text-light">
-              {CardItem.titulo || "Titulo do jogo"}
-            </span>
+            <div className="d-flex align-items-center justify-content-between gap-2">
+              <span className="fs-2 text-light">
+                {CardItem.titulo || "Titulo do jogo"}
+              </span>
+              <span onClick={voltar} className="btn text-light fs-5 d-flex gap-2"><i className="bi bi-box-arrow-left"></i>Voltar</span>
+            </div>
             <hr />
           </div>
           <div className="col-md-6 d-flex flex-column z-2">
@@ -94,7 +103,7 @@ const GameDescription = () => {
           </div>
         </div>
       </div>
-      <Footer z=""/>
+      <Footer />
     </div>
   );
 };
