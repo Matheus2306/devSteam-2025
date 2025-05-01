@@ -61,7 +61,7 @@ input.form-control:focus {
   background: linear-gradient(90deg, #2d3b4a 0%, #3d4f63 100%);
 }
 .gradientFundo {
-  background: linear-gradient(180deg, rgba(76, 113, 158, 0.3) 0%, rgba(27, 40, 56, 0.7) 100%);
+  background: linear-gradient(180deg, rgba(76, 113, 158, 0.6) 0%, rgba(27, 40, 56, 1) 100%);
 }
 
 .cards {
@@ -152,3 +152,4 @@ input.form-control:focus {
   margin-right: 5px; /* Adjusted margin to 5px */
   margin-left: 5px; /* Added matching left margin */
 }
+

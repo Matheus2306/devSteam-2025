@@ -1,26 +1,38 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const PromoCard = (props) => {
   const precoComDesconto = props.preco - (props.preco * props.desconto) / 100;
   const navigate = useNavigate();
 
+  // Seleciona a primeira imagem se for um array, ou usa o valor diretamente
+  const primeiraImagem = Array.isArray(props.imagem) ? props.imagem[0] : props.imagem;
+
+  const information = () => {
+    return {
+      id: props.id,
+      titulo: props.titulo,
+      imagem: props.imagem, // Passa o array completo para a próxima página
+      preco: props.preco,
+      desconto: props.desconto,
+    };
+  };
+
   const GoToDescription = () => {
-    navigate("/GameDescription")
-  }
+    navigate("/GameDescription", { state: { jogo: information() } });
+  };
 
   return (
     <div
       id="PromoCard"
       className="promoCard card border-0 overflow-hidden"
-      onClick={GoToDescription} //adicionando a ação de click para +1 item de jogo no carrinho
-
->
+      onClick={GoToDescription}
+    >
       <img
         className="card-img-top object-fit-cover"
-        src={props.imagem}
+        src={primeiraImagem} // Exibe apenas a primeira imagem
         height={300}
-        alt="Titulo do jogo"
+        alt={props.titulo || "Imagem do jogo"}
       />
       <div className="card-body d-flex flex-column gap-2">
         <h5
@@ -46,16 +58,12 @@ const PromoCard = (props) => {
         <button
           id="addCarrinho"
           className="btn btn-success desconto text-light w-100 border-0"
-          //adicionando a ação de click para +1 item de jogo no carrinho
-
-          //não se faz necessário adicionar uma função de callback ou um item interno na função, exemplo onAddCarrinho(jogo);
           onClick={props.onAddCarrinho}
         >
           <i className="bi bi-cart-plus me-2"></i>
           Adicionar ao carrinho
         </button>
       </div>
-  
     </div>
   );
 };

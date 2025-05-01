@@ -57,8 +57,11 @@ const Promotion = (props) => {
         titulo: "Hogwarts Legacy",
         preco: 229.99,
         desconto: 10,
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg",
+        imagem: [
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg", // Imagem principal
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",   // Imagem adicional 1
+         
+        ],
         descricao:
           "Mergulhe no mundo bruxo de Hogwarts no século XIX. Crie seu próprio bruxo e descubra segredos mágicos.",
         categoria: "RPG de Ação",
@@ -131,6 +134,7 @@ const Promotion = (props) => {
             formatarMoeda={formatarMoeda} // Passando a função para o PromoCard
             onAddCarrinho={() => props.onAddCarrinho(jogo)}
           />
+          
         ))}
       </div>
     </div>
