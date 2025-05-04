@@ -26,17 +26,17 @@ const Login = () => {
 
       <div className="container d-flex flex-column justify-content-center align-items-center flex-grow-1 py-4">
         <form
-          className="position-relative formsBg rounded-1 p-4 d-flex flex-column align-items-center w-100"
+          className="position-relative rounded-1 p-4 d-flex flex-column justify-content-center align-items-center w-100"
           style={{ maxWidth: "500px", minHeight: "450px" }}
           onSubmit={handleLogin}
         >
           <div className="formsBg rounded-2 z-1 position-absolute w-100 h-100"></div>
-
           <img
             className="z-0 position-absolute img-fluid opacity-50 w-100 h-100 object-fit-cover"
             src="src/img/Ratzomne_1.png"
             alt=""
           />
+
 
           <div className="z-2 d-flex flex-column w-100 gap-3 justify-content-center align-items-center">
             <h3 className="text-uppercase text-center">Entrar</h3>
