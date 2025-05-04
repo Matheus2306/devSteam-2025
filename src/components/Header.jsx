@@ -25,7 +25,7 @@ const Header = (props) => {
             alt=""
             style={{ width: "75px", height: "75px" }}
           />
-          <span className="navbar-brand fw-bold fs-3">RatZone</span>
+          <span className="navbar-brand fw-bold fs-3 d-flex">RatZone <small className="fs-6 top-0">TM</small></span>
         </div>
 
         <input
