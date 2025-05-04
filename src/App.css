@@ -19,7 +19,7 @@ body {
   width: 100%;
   max-width: 320px;
   transition: transform 0.2s;
-  background: linear-gradient(180deg, #2b87ae 10%,  #19587b 100%);
+  background: linear-gradient(180deg, #2b87ae 10%, #19587b 100%);
 }
 
 .promoCard:hover {
@@ -61,7 +61,11 @@ input.form-control:focus {
   background: linear-gradient(90deg, #2d3b4a 0%, #3d4f63 100%);
 }
 .gradientFundo {
-  background: linear-gradient(180deg, rgba(76, 113, 158, 0.6) 0%, rgba(27, 40, 56, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(76, 113, 158, 0.6) 0%,
+    rgba(27, 40, 56, 1) 100%
+  );
 }
 
 .cards {
@@ -153,3 +157,32 @@ input.form-control:focus {
   margin-left: 5px; /* Added matching left margin */
 }
 
+.formsBg {
+  background: rgba(11, 14, 32, 0.5);
+}
+
+.inputLog {
+  background: #1b2838;
+}
+
+.inputLog::placeholder {
+  color: #d7d7d7;
+  opacity: 0.5; /* Adjusts the opacity of the placeholder text */
+}
+.inputLog:focus {
+  background: #1b2838;
+  color: #d7d7d7;
+  box-shadow: none; /* Remove the default blue shadow on focus */
+  border-color: #d7d7d7; /* Change border color on focus */
+}
+
+.btnColor {
+  background: #1b2838; 
+}
+.btnColor:hover {
+  background: #2a475e;
+}
+
+.imgRde {
+  width: 100px;
+}
