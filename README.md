@@ -67,4 +67,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 
-Desenvolvido com 💻 por [Seu Nome](https://github.com/seu-usuario)
+Desenvolvido com 💻 por Matheus(https://github.com/matheus2306), Byran(https://github.com/Bryanbzgg), Pedro(https://github.com/Limazxz) e João(https://github.com/jotaMilani)
