@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const GameCard = ({ titulo, preco, imagem, categoria, descricao, onAddCarrinho }) => {
   const handleAddToCart = () => {
@@ -11,6 +12,20 @@ const GameCard = ({ titulo, preco, imagem, categoria, descricao, onAddCarrinho }
         descricao,
       });
     }
+  };
+   const information = () => {
+    return {
+      titulo,
+      preco,
+      imagem,
+      categoria,
+      descricao,
+    };
+  };
+  const navigate = useNavigate();
+
+  const GoToDescription = () => {
+  navigate("/GameDescription", { state: { jogo: information() } });
   };
 
   return (
@@ -53,7 +68,7 @@ const GameCard = ({ titulo, preco, imagem, categoria, descricao, onAddCarrinho }
           <i className="bi bi-cart-plus me-2"></i>
           Adicionar ao carrinho
         </button>
-        <button className="button">Ver Detalhes</button>
+        <span onClick={GoToDescription} role="button" className="mt-1 mx-2 text-decoration-underline text-info">Saiba Mais</span>
       </div>
     </div>
   );
