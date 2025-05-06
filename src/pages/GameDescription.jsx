@@ -18,15 +18,14 @@ const GameDescription = () => {
     navigate(-1);
   };
 
+  useEffect(() => {
+    localStorage.setItem("devcarrinho", JSON.stringify(carrinhoItem));
+  }, [carrinhoItem]);
 
   useEffect(() => {
     const salvaCarrinho = localStorage.getItem("devcarrinho");
     salvaCarrinho && setCarrinhoItem(JSON.parse(salvaCarrinho));
   }, []);
-  if (carrinhoItem> 0){
-    localStorage.setItem("devcarrinho", JSON.stringify(carrinhoItem));
-  }
-
 
   // Garante que categoria seja um array
   const Arraycate = Array.isArray(CardItem.categoria)
@@ -45,8 +44,6 @@ const GameDescription = () => {
   const primeiraImagem = Array.isArray(CardItem.imagem)
     ? CardItem.imagem[0]
     : CardItem.imagem;
-
-  console.log(carrinhoItem)
 
   const handleAddCarrinho = (produto) => {
     setCarrinhoItem((itemAnterior) => {

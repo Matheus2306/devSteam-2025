@@ -9,7 +9,12 @@ import Footer from "./components/Footer";
 function App() {
   const [carrinhoItem, setCarrinhoItem] = useState([]);
 
-  
+  // Este useEffect é executado sempre que o estado `carrinhoItem` muda.
+  // Ele salva o estado atual do carrinho no localStorage com a chave "devcarrinho".
+  // Isso garante que o estado do carrinho persista entre recarregamentos da página.
+  useEffect(() => {
+    localStorage.setItem("devcarrinho", JSON.stringify(carrinhoItem));
+  }, [carrinhoItem]);
 
   // Este useEffect é executado uma vez quando o componente é montado (array de dependências vazio).
   // Ele recupera o estado salvo do carrinho no localStorage (se existir) e atualiza o estado `carrinhoItem`.
@@ -18,11 +23,6 @@ function App() {
     const salvaCarrinho = localStorage.getItem("devcarrinho");
     salvaCarrinho && setCarrinhoItem(JSON.parse(salvaCarrinho));
   }, []);
-
-  //se o carrinho existir traga as informações
-  if (carrinhoItem> 0){
-    localStorage.setItem("devcarrinho", JSON.stringify(carrinhoItem));
-  }
 
   // console.log(localStorage.getItem("devcarrinho"));
 
