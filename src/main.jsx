@@ -14,6 +14,7 @@ import { formatarMoeda } from "./utils/formatters.js";
 import GameDescription from "./pages/GameDescription.jsx";
 import Perfil from "./pages/Perfil.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import CadastroCartao from "./pages/CadastroCartao.jsx";
 
 // Contexto global acessível a todas as rotas
 export const GlobalContext = createContext(null);
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/sobre-nos" element={<SobreNos />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/cadastro-cartao" element={<CadastroCartao />} />
         </Routes>
       </BrowserRouter>
     </GlobalContext.Provider>
