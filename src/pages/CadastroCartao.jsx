@@ -15,6 +15,8 @@ const CadastroCartao = () => {
     cpf: "",
   });
 
+  const [cardBrand, setCardBrand] = useState(null); // Estado para armazenar a bandeira do cartão
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -29,6 +31,19 @@ const CadastroCartao = () => {
     }
 
     setFormData({ ...formData, [name]: value });
+
+    // Detect card brand dynamically
+    if (name === "numeroCartao" && value.length >= 6) {
+      const bin = value.slice(0, 6);
+      fetch(`https://lookup.binlist.net/${bin}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCardBrand(data.scheme || "Desconhecida");
+        })
+        .catch(() => {
+          setCardBrand("Desconhecida");
+        });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -66,12 +81,15 @@ const CadastroCartao = () => {
       alert("O cartão só pode ser cadastrado com um mês de antecedência.");
       return;
     }
+
     if (!/^\d{3}$/.test(cvvCartao)) {
       alert("O código de segurança (CVV) deve conter exatamente 3 números.");
       return;
     }
 
     navigate("/");
+
+    // Aqui você pode enviar a informação para o backend, ou salvar o cartão
   };
 
   return (
@@ -157,12 +175,23 @@ const CadastroCartao = () => {
               maxLength="3"
             />
 
+            {/* Exibir a bandeira do cartão */}
+            {cardBrand && (
+              <div className="mt-3">
+                <img
+                  src={`/path/to/icons/${cardBrand}.png`} // Caminho para os ícones das bandeiras
+                  alt={cardBrand}
+                  style={{ width: "50px" }}
+                />
+              </div>
+            )}
+
             <button type="submit" className="btn btn-success mt-4">
               Salvar Informações
             </button>
           </div>
         </form>
-        <Cartoes numeroCartao={formData.numeroCartao} />
+        <Cartoes numeroCartao={formData.numeroCartao} cardBrand={cardBrand} />
       </div>
       <Footer />
     </div>
