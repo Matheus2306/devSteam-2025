@@ -59,8 +59,7 @@ const Promotion = (props) => {
         desconto: 10,
         imagem: [
           "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg", // Imagem principal
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",   // Imagem adicional 1
-         
+          "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg", // Imagem adicional 1
         ],
         descricao:
           "Mergulhe no mundo bruxo de Hogwarts no século XIX. Crie seu próprio bruxo e descubra segredos mágicos.",
@@ -86,7 +85,7 @@ const Promotion = (props) => {
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg",
         descricao:
           "Kratos retorna em uma jornada emocional com seu filho Atreus. Uma releitura nórdica da lenda do Deus da Guerra.",
-        categoria: ["Ação e Aventura","Fantasia"],
+        categoria: ["Ação e Aventura", "Fantasia"],
       },
       {
         id: 8,
@@ -126,6 +125,7 @@ const Promotion = (props) => {
         {aleatorio.map((jogo) => (
           <PromoCard
             key={jogo.id}
+            id={jogo.id}
             titulo={jogo.titulo}
             preco={jogo.preco}
             precoFormatado={formatarMoeda(jogo.preco)}
@@ -136,7 +136,6 @@ const Promotion = (props) => {
             categoria={jogo.categoria}
             descricao={jogo.descricao}
           />
-          
         ))}
       </div>
     </div>

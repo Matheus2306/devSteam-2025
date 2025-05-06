@@ -47,29 +47,6 @@ const caroucel = (props) => {
         ))}
       </div>
 
-      {/* Controles */}
-      <div>
-        <div className="carousel-caption d-none d-md-block">
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-            aria-label="Slide anterior"
-          >
-            <i className="bi bi-arrow-left fs-2 text-black"></i>
-          </button>
-          <button
-            className="carousel-control-next h-25"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-            aria-label="Próximo slide"
-          >
-            <i className="bi bi-arrow-right fs-2 text-black"></i>
-          </button>
-        </div>
-      </div>
     </div>
   );
 };

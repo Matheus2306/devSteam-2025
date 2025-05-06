@@ -5,15 +5,28 @@ import MarcadorCategoria from "../components/MarcadorCategoria";
 import Footer from "../components/Footer";
 import GameValor from "../components/GameValor";
 import Caroucel from "../components/Caroucel";
+import CarrinhoOffCanvas from "../components/CarrinhoOffCanvas";
 
 const GameDescription = () => {
+  const [carrinhoItem, setCarrinhoItem] = useState([]);
+
   const { state } = useLocation();
   const [CardItem, setCardItem] = useState(state?.jogo || {});
   const navigate = useNavigate();
 
   const voltar = () => {
     navigate(-1);
+  };
+
+
+  useEffect(() => {
+    const salvaCarrinho = localStorage.getItem("devcarrinho");
+    salvaCarrinho && setCarrinhoItem(JSON.parse(salvaCarrinho));
+  }, []);
+  if (carrinhoItem> 0){
+    localStorage.setItem("devcarrinho", JSON.stringify(carrinhoItem));
   }
+
 
   // Garante que categoria seja um array
   const Arraycate = Array.isArray(CardItem.categoria)
@@ -33,19 +46,54 @@ const GameDescription = () => {
     ? CardItem.imagem[0]
     : CardItem.imagem;
 
-  console.log(Arraycate);
+  console.log(carrinhoItem)
 
+  const handleAddCarrinho = (produto) => {
+    setCarrinhoItem((itemAnterior) => {
+      const existe = itemAnterior.find((item) => item.id === produto.id);
+      if (existe) {
+        return itemAnterior.map((item) =>
+          item.id === produto.id
+            ? { ...item, quantidade: item.quantidade + 1 }
+            : item
+        );
+      } else {
+        return [...itemAnterior, { ...produto, quantidade: 1 }];
+      }
+    });
+  };
+
+  const handleRemoveCarrinho = (produto) => {
+    setCarrinhoItem((itemAnterior) =>
+      itemAnterior.filter((item) => item.id !== produto.id)
+    );
+  };
+
+  const handleUpdateCarrinho = (produto, novaQuantidade) => {
+    setCarrinhoItem((itemAnterior) =>
+      itemAnterior.map((item) =>
+        item.id === produto.id
+          ? { ...item, quantidade: novaQuantidade > 0 ? novaQuantidade : 1 }
+          : item
+      )
+    );
+  };
 
   return (
     <div className="w-100 h-100">
-      <Header />
+      <Header contadorJogos={carrinhoItem.length} />
+      <CarrinhoOffCanvas
+        onRemoveCarrinho={handleRemoveCarrinho}
+        onUpdateCarrinho={handleUpdateCarrinho}
+        carrinhoItem={carrinhoItem}
+      />
       <img
         src={primeiraImagem || "https://placehold.co/1920x1080"}
         className="z-0 vh-100 w-100 position-absolute opacity-75"
         alt={CardItem.titulo || ""}
       />
       <div
-        className="z-1 gradientFundo vh-100 w-100 position-absolute"
+        className="z-1 gradientFundo h-100 w-100 position-absolute"
         alt=""
       ></div>
       <div className="container">
@@ -55,7 +103,12 @@ const GameDescription = () => {
               <span className="fs-2 text-light">
                 {CardItem.titulo || "Titulo do jogo"}
               </span>
-              <span onClick={voltar} className="btn text-light fs-5 d-flex gap-2"><i className="bi bi-box-arrow-left"></i>Voltar</span>
+              <span
+                onClick={voltar}
+                className="btn text-light fs-5 d-flex gap-2"
+              >
+                <i className="bi bi-box-arrow-left"></i>Voltar
+              </span>
             </div>
             <hr />
           </div>
@@ -68,11 +121,7 @@ const GameDescription = () => {
                 <span>Lista de Desejos</span>
               </button>
             </div>
-            <GameValor
-              titulo={CardItem.titulo}
-              valor={CardItem.preco}
-              desconto={CardItem.desconto}
-            />
+            <GameValor handleAddCarrinho={handleAddCarrinho} jogo={CardItem} />
           </div>
           <div className="col-md d-flex flex-column z-2">
             <div>
