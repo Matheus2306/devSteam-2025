@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import HeaderLogs from "../components/HeaderLogs";
 import Footer from "../components/Footer";
+import Cartoes from "../components/Cartoes";
 
 const CadastroCartao = () => {
   const navigate = useNavigate();
@@ -16,6 +17,17 @@ const CadastroCartao = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // Ensure only numeric input for numeroCartao and cpf
+    if ((name === "numeroCartao" || name === "cpf") && !/^\d*$/.test(value)) {
+      return;
+    }
+
+    // Ensure only letters for nome
+    if (name === "nome" && !/^[a-zA-Z\s]*$/.test(value)) {
+      return;
+    }
+
     setFormData({ ...formData, [name]: value });
   };
 
@@ -38,20 +50,22 @@ const CadastroCartao = () => {
       return;
     }
 
-    if (!/^\d{2}\/\d{2}$/.test(validade)) {
-      alert("A validade deve estar no formato MM/AA.");
-      return;
-    }
-
-    const [month, year] = validade.split("/").map(Number);
+    const [day, month, year] = validade.split("/").map(Number);
     const currentDate = new Date();
-    const cardDate = new Date(`20${year}`, month - 1);
+    const cardDate = new Date(`20${year}`, month - 1, day);
 
-    if (cardDate <= currentDate) {
-      alert("A validade deve ser uma data futura.");
+    if (cardDate < currentDate) {
+      alert("A data inserida já passou.");
       return;
     }
 
+    const oneMonthAhead = new Date();
+    oneMonthAhead.setMonth(currentDate.getMonth() + 1);
+
+    if (cardDate > oneMonthAhead) {
+      alert("O cartão só pode ser cadastrado com um mês de antecedência.");
+      return;
+    }
     if (!/^\d{3}$/.test(cvvCartao)) {
       alert("O código de segurança (CVV) deve conter exatamente 3 números.");
       return;
@@ -63,7 +77,7 @@ const CadastroCartao = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <HeaderLogs />
-      <div className="container d-flex flex-column justify-content-center align-items-start flex-grow-1 py-4">
+      <div className="container d-flex flex-row justify-content align-items-start flex-grow-1 py-4">
         <form
           onSubmit={handleSubmit}
           className="position-relative rounded-1 p-4 d-flex flex-column justify-content-center align-items-center w-100"
@@ -79,7 +93,7 @@ const CadastroCartao = () => {
             <h3 className="text-uppercase text-center">Cadastro de Cartão</h3>
 
             <select
-              className="form-select p-3 border-0 text-light w-100"
+              className="form-select p-3 border-0 text-dark w-100"
               name="tipoCartao"
               value={formData.tipoCartao}
               onChange={handleInputChange}
@@ -126,10 +140,10 @@ const CadastroCartao = () => {
               type="text"
               name="validade"
               id="frmValidade"
-              placeholder="MM/AA"
+              placeholder="Data de Vencimento do Cartão (DD/MM/AA)"
               value={formData.validade}
               onChange={handleInputChange}
-              maxLength="5"
+              maxLength="10"
             />
 
             <input
@@ -148,6 +162,7 @@ const CadastroCartao = () => {
             </button>
           </div>
         </form>
+        <Cartoes numeroCartao={formData.numeroCartao} />
       </div>
       <Footer />
     </div>
