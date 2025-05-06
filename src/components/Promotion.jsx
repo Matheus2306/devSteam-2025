@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import PromoCard from "./PromoCard";
 import { GlobalContext } from "../main.jsx";
+import HeroCarousel from "./HeroCarousel.jsx";
+
+
 
 const Promotion = (props) => {
   const [aleatorio, setAleatorio] = useState([]);
@@ -80,7 +83,7 @@ const Promotion = (props) => {
         id: 7,
         titulo: "God of War",
         preco: 159.99,
-        desconto: 25,
+        desconto: 75,
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg",
         descricao:
@@ -102,6 +105,8 @@ const Promotion = (props) => {
     []
   );
 
+  const jogosComDescontoAlto = games.filter((jogo) => jogo.desconto >= 60);
+
   useEffect(() => {
     const aleatorioJogos = games
       .filter((jogo) => jogo.desconto > 0)
@@ -112,31 +117,35 @@ const Promotion = (props) => {
     setAleatorio(aleatorioJogos);
   }, [games]);
 
+
   return (
-    <div id="promotion" className="container w-75 my-4">
-      <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
-        Promoções
-      </h2>
-      <div
-        id="itensPromo"
-        className="d-flex flex-wrap gap-4 justify-content-around"
-      >
-        {/* mapeando um array com react */}
-        {aleatorio.map((jogo) => (
-          <PromoCard
-            key={jogo.id}
-            id={jogo.id}
-            titulo={jogo.titulo}
-            preco={jogo.preco}
-            precoFormatado={formatarMoeda(jogo.preco)}
-            desconto={jogo.desconto}
-            imagem={jogo.imagem}
-            formatarMoeda={formatarMoeda} // Passando a função para o PromoCard
-            onAddCarrinho={() => props.onAddCarrinho(jogo)}
-            categoria={jogo.categoria}
-            descricao={jogo.descricao}
-          />
-        ))}
+    <div className="w-100 h-100">
+      <HeroCarousel jogos={jogosComDescontoAlto} />
+      <div id="promotion" className="container w-75 my-4">
+        <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
+          Promoções
+        </h2>
+        <div
+          id="itensPromo"
+          className="d-flex flex-wrap gap-4 justify-content-around"
+        >
+          {/* mapeando um array com react */}
+          {aleatorio.map((jogo) => (
+            <PromoCard
+              key={jogo.id}
+              id={jogo.id}
+              titulo={jogo.titulo}
+              preco={jogo.preco}
+              precoFormatado={formatarMoeda(jogo.preco)}
+              desconto={jogo.desconto}
+              imagem={jogo.imagem}
+              formatarMoeda={formatarMoeda} // Passando a função para o PromoCard
+              onAddCarrinho={() => props.onAddCarrinho(jogo)}
+              categoria={jogo.categoria}
+              descricao={jogo.descricao}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

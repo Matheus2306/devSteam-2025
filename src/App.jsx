@@ -59,6 +59,7 @@ function App() {
 
   return (
     <>
+
       <Header contadorJogos={carrinhoItem.length} />
       <Promotion
         onAddCarrinho={handleAddCarrinho} //adicionando o click para promoção

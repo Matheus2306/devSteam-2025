@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import Header from "../components/Header";
-import MarcadorCategoria from "../components/MarcadorCategoria";
 import Footer from "../components/Footer";
-import GameValor from "../components/GameValor";
-import Caroucel from "../components/Caroucel";
+
 import CarrinhoOffCanvas from "../components/CarrinhoOffCanvas";
+import TituloGameDescr from "../components/TituloGameDescr";
+import SideleftDescrInform from "../components/SideleftDescrInform";
+import SideRightDescr from "../components/SideRightDescr";
 
 const GameDescription = () => {
   const [carrinhoItem, setCarrinhoItem] = useState([]);
@@ -95,58 +96,22 @@ const GameDescription = () => {
       ></div>
       <div className="container">
         <div className="row my-5 gap-5">
-          <div className="my-3 z-2">
-            <div className="d-flex align-items-center justify-content-between gap-2">
-              <span className="fs-2 text-light">
-                {CardItem.titulo || "Titulo do jogo"}
-              </span>
-              <span
-                onClick={voltar}
-                className="btn text-light fs-5 d-flex gap-2"
-              >
-                <i className="bi bi-box-arrow-left"></i>Voltar
-              </span>
-            </div>
-            <hr />
-          </div>
-          <div className="col-md-6 d-flex flex-column z-2">
-            {/* Carrossel de imagens */}
-            <Caroucel imagem={CardItem.imagem} />
-            <div className="my-3">
-              <button className="btn text-light d-flex gap-2 buttons">
-                <i className="bi bi-plus"></i>
-                <span>Lista de Desejos</span>
-              </button>
-            </div>
-            <GameValor handleAddCarrinho={handleAddCarrinho} jogo={CardItem} />
-          </div>
-          <div className="col-md d-flex flex-column z-2">
-            <div>
-              <img src={primeiraImagem} className="img-fluid w-100" alt="" />
-            </div>
-            <div className="text-light h5 mt-3">
-              <p>{CardItem.descricao || "Descrição do jogo"}</p>
-              <div className="text-secondary d-flex flex-column gap-2">
-                <span>
-                  Análises Recentes: {CardItem.analisesRecentes || "analise"}
-                </span>
-                <span>Todas as Análises: {CardItem.analises || "analise"}</span>
-                <span>
-                  Data de Lançamento: {CardItem.dataLancamento || "Data"}
-                </span>
-                <span>Desenvolvedor: {CardItem.desenvolvedor || "xxx"}</span>
-                <span>Distribuidora: {CardItem.distribuidora || "xxx"}</span>
-                <div className="d-flex flex-column gap-2">
-                  <span>Marcadores populares para esse produto:</span>
-                  <div className="d-flex flex-wrap gap-2">
-                    {Arraycate.map((categoria, index) => (
-                      <MarcadorCategoria key={index} categoria={categoria} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TituloGameDescr titulo={CardItem.titulo} voltar={voltar} />
+          <SideleftDescrInform
+            imagem={CardItem.imagem}
+            handleAddCarrinho={handleAddCarrinho}
+            jogo={CardItem}
+          />
+          <SideRightDescr
+            primeiraImagem={primeiraImagem}
+            Arraycate={Arraycate}
+            descricao={CardItem.descricao}
+            analisesRecentes={CardItem.analisesRecentes}
+            analises={CardItem.analises}
+            dataLancamento={CardItem.dataLancamento}
+            desenvolvedor={CardItem.desenvolvedor}
+            distribuidora={CardItem.distribuidora}
+          />
         </div>
       </div>
       <Footer />
