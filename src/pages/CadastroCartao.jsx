@@ -8,8 +8,10 @@ const CadastroCartao = () => {
   const [formData, setFormData] = useState({
     nome: "",
     numeroCartao: "",
-    validadeCartao: "",
+    validade: "",
     cvvCartao: "",
+    tipoCartao: "credito",
+    cpf: "",
   });
 
   const handleInputChange = (e) => {
@@ -19,7 +21,7 @@ const CadastroCartao = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { nome, numeroCartao, validadeCartao, cvvCartao } = formData;
+    const { nome, numeroCartao, validade, cvvCartao, cpf } = formData;
 
     if (!nome || nome.length < 3 || nome.length > 10) {
       alert("O nome no cartão deve ter entre 3 e 10 caracteres.");
@@ -31,16 +33,22 @@ const CadastroCartao = () => {
       return;
     }
 
-    if (!validadeCartao) {
-      alert("Por favor, insira uma data de validade válida.");
+    if (!/^\d{11}$/.test(cpf)) {
+      alert("O CPF deve conter exatamente 11 números.");
       return;
     }
 
-    const currentDate = new Date();
-    const selectedDate = new Date(validadeCartao);
+    if (!/^\d{2}\/\d{2}$/.test(validade)) {
+      alert("A validade deve estar no formato MM/AA.");
+      return;
+    }
 
-    if (selectedDate <= currentDate) {
-      alert("A data de validade deve ser uma data futura.");
+    const [month, year] = validade.split("/").map(Number);
+    const currentDate = new Date();
+    const cardDate = new Date(`20${year}`, month - 1);
+
+    if (cardDate <= currentDate) {
+      alert("A validade deve ser uma data futura.");
       return;
     }
 
@@ -55,7 +63,7 @@ const CadastroCartao = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <HeaderLogs />
-      <div className="container d-flex flex-column justify-content-center align-items-center flex-grow-1 py-4">
+      <div className="container d-flex flex-column justify-content-center align-items-start flex-grow-1 py-4">
         <form
           onSubmit={handleSubmit}
           className="position-relative rounded-1 p-4 d-flex flex-column justify-content-center align-items-center w-100"
@@ -67,16 +75,36 @@ const CadastroCartao = () => {
             src="src/img/Ratzomne_1.png"
             alt=""
           />
-
           <div className="z-2 d-flex flex-column w-100 gap-3 justify-content-center align-items-center">
             <h3 className="text-uppercase text-center">Cadastro de Cartão</h3>
+
+            <select
+              className="form-select p-3 border-0 text-light w-100"
+              name="tipoCartao"
+              value={formData.tipoCartao}
+              onChange={handleInputChange}
+            >
+              <option value="credito">Crédito</option>
+              <option value="debito">Débito</option>
+            </select>
+
+            <input
+              className="form-control inputLog p-3 border-0 text-light w-100"
+              type="text"
+              name="numeroCartao"
+              id="frmNumeroCartao"
+              placeholder="Nº do Cartão"
+              value={formData.numeroCartao}
+              onChange={handleInputChange}
+              maxLength="16"
+            />
 
             <input
               className="form-control inputLog p-3 border-0 text-light w-100"
               type="text"
               name="nome"
               id="frmNome"
-              placeholder="Nome no cartão"
+              placeholder="Nome do Titular"
               value={formData.nome}
               onChange={handleInputChange}
               maxLength="10"
@@ -85,22 +113,23 @@ const CadastroCartao = () => {
             <input
               className="form-control inputLog p-3 border-0 text-light w-100"
               type="text"
-              name="numeroCartao"
-              id="frmNumeroCartao"
-              placeholder="Número do cartão"
-              value={formData.numeroCartao}
+              name="cpf"
+              id="frmCPF"
+              placeholder="CPF do Titular"
+              value={formData.cpf}
               onChange={handleInputChange}
-              maxLength="16"
+              maxLength="11"
             />
 
             <input
               className="form-control inputLog p-3 border-0 text-light w-100"
-              type="date"
-              name="validadeCartao"
-              id="frmValidadeCartao"
-              placeholder="Validade do cartão (MM/AA)"
-              value={formData.validadeCartao}
+              type="text"
+              name="validade"
+              id="frmValidade"
+              placeholder="MM/AA"
+              value={formData.validade}
               onChange={handleInputChange}
+              maxLength="5"
             />
 
             <input
@@ -114,8 +143,8 @@ const CadastroCartao = () => {
               maxLength="3"
             />
 
-            <button type="submit" className="btn btn-primary mt-4">
-              Cadastrar Cartão
+            <button type="submit" className="btn btn-success mt-4">
+              Salvar Informações
             </button>
           </div>
         </form>
