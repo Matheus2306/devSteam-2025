@@ -5,52 +5,60 @@ import Footer from "../components/Footer";
 
 const Perfil = () => {
   const [randomGames, setRandomGames] = useState([]);
+  const [usuario, setUsuario] = useState(null); // Estado para armazenar o usuário
+
+  useEffect(() => {
+    const salvaUsuario = localStorage.getItem("devlogin");
+    if (salvaUsuario) {
+      setUsuario(JSON.parse(salvaUsuario)); // Carrega o nome do usuário do localStorage
+    }
+  }, []);
 
   const friends = [
     {
-      name: "Alex Thunder",
+      name: "Brr Brr Patapim",
       status: "On-line",
       game: "Fortnite",
       picture: "https://placehold.co/74x74",
     },
     {
-      name: "Mia Spark",
-      status: "Off-line",
-      game: "",
-      picture: "https://placehold.co/74x74",
-    },
-    {
-      name: "John Blaze",
+      name: "ratin",
       status: "On-line",
-      game: "Call of Duty",
+      game: "EA FC 25",
       picture: "https://placehold.co/74x74",
     },
     {
-      name: "Sophia Light",
+      name: "tripp troppa",
+      status: "On-line",
+      game: "Fortnite",
+      picture: "https://placehold.co/74x74",
+    },
+    {
+      name: "Carlin du lavas",
       status: "Off-line",
       game: "",
       picture: "https://placehold.co/74x74",
     },
     {
-      name: "Ethan Storm",
+      name: "Dancanz",
       status: "On-line",
       game: "Apex Legends",
       picture: "https://placehold.co/74x74",
     },
     {
-      name: "Olivia Frost",
-      status: "Off-line",
-      game: "",
+      name: "MAIOR HATER de lol",
+      status: "On-line",
+      game: "League of legends",
       picture: "https://placehold.co/74x74",
     },
     {
-      name: "Liam Shadow",
+      name: "CadetDan32",
       status: "On-line",
       game: "Valorant",
       picture: "https://placehold.co/74x74",
     },
     {
-      name: "Emma Flame",
+      name: "Guigas",
       status: "Off-line",
       game: "",
       picture: "https://placehold.co/74x74",
@@ -87,7 +95,7 @@ const Perfil = () => {
         id: 4,
         titulo: "Red Dead Redemption 2",
         tempoDeJogo: "12h",
-        ultimaVezJogado: "09/04/2025",
+        ultimaVezJogado: "02/05/2025",
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",
       },
@@ -117,8 +125,8 @@ const Perfil = () => {
       },
       {
         id: 8,
-        titulo: "FIFA 24",
-        tempoDeJogo: "11h",
+        titulo: "FIFA 25",
+        tempoDeJogo: "120h",
         ultimaVezJogado: "10/03/2025",
         imagem:
           "https://cdn.cloudflare.steamstatic.com/steam/apps/2195250/header.jpg",
@@ -144,7 +152,7 @@ const Perfil = () => {
         <img src="https://placehold.co/100x100" alt="" className="me-3" />
         <div>
           <h2>
-            kenna
+            {usuario?.nome || "Usuário"} {/* Exibe o nome do usuário ou "Usuário" */}
             <button
               className="btn btn-link"
               type="button"
@@ -156,7 +164,7 @@ const Perfil = () => {
               <i className="bi bi-caret-down-fill"></i>
             </button>
           </h2>
-          <p>🇺🇾 Montevideo, Urugay</p>
+          <p>🇺🇾 Montevideo, Uruguay</p>
         </div>
       </div>
       <div className="d-flex justify-content-start d-flex gap-5">
