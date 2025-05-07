@@ -37,6 +37,9 @@ const HeroCarousel = (props) => {
             precoComDesconto={jogo.preco * (1 - jogo.desconto / 100)}
             desconto={jogo.desconto}
             className={`carousel-item ${index === activeIndex ? 'active' : ''}`}
+            precoOriginal={jogo.preco}
+            Categoria={jogo.categoria}
+            descricao={jogo.descricao}
           />
         ))}
       </div>
