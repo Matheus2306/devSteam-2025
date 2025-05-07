@@ -2,100 +2,50 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import HeaderLogs from "../components/HeaderLogs";
 import Footer from "../components/Footer";
-import Cartoes from "../components/Cartoes";
+import Cards from "react-credit-cards-2";
+import { IMaskInput } from "react-imask";
 
 const CadastroCartao = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    nome: "",
-    numeroCartao: "",
-    validade: "",
-    cvvCartao: "",
-    tipoCartao: "credito",
-    cpf: "",
+
+  const [cardData, setCardData] = useState({
+    number: "",
+    name: "",
+    expiry: "",
+    cvc: "",
+    focus: "",
   });
-
-  const [cardBrand, setCardBrand] = useState(null); // Estado para armazenar a bandeira do cartão
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    // Ensure only numeric input for numeroCartao and cpf
-    if ((name === "numeroCartao" || name === "cpf") && !/^\d*$/.test(value)) {
-      return;
-    }
-
-    // Ensure only letters for nome
-    if (name === "nome" && !/^[a-zA-Z\s]*$/.test(value)) {
-      return;
-    }
-
-    setFormData({ ...formData, [name]: value });
-
-    // Detect card brand dynamically
-    if (name === "numeroCartao" && value.length >= 6) {
-      const bin = value.slice(0, 6);
-      fetch(`https://lookup.binlist.net/${bin}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setCardBrand(data.scheme || "Desconhecida");
-        })
-        .catch(() => {
-          setCardBrand("Desconhecida");
-        });
-    }
-  };
+  const [bandeira, setBandeira] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { nome, numeroCartao, validade, cvvCartao, cpf } = formData;
 
-    if (!nome || nome.length < 3 || nome.length > 10) {
-      alert("O nome no cartão deve ter entre 3 e 10 caracteres.");
-      return;
-    }
+    // const { nome, cpf, numeroCartao } = formData;
 
-    if (!/^\d{16}$/.test(numeroCartao)) {
-      alert("O número do cartão deve conter exatamente 16 números.");
-      return;
-    }
+    // if (!nome || nome.length < 3 || nome.length > 10) {
+    //   alert("O nome no cartão deve ter entre 3 e 10 caracteres.");
+    //   return;
+    // }
 
-    if (!/^\d{11}$/.test(cpf)) {
-      alert("O CPF deve conter exatamente 11 números.");
-      return;
-    }
+    // if (!/^\d{11}$/.test(cpf)) {
+    //   alert("O CPF deve conter exatamente 11 números.");
+    //   return;
+    // }
 
-    const [day, month, year] = validade.split("/").map(Number);
-    const currentDate = new Date();
-    const cardDate = new Date(`20${year}`, month - 1, day);
+    // if (!/^\d{16}$/.test(numeroCartao)) {
+    //   alert("O número do cartão deve conter exatamente 16 dígitos.");
+    //   return;
+    // }
 
-    if (cardDate < currentDate) {
-      alert("A data inserida já passou.");
-      return;
-    }
-
-    const oneMonthAhead = new Date();
-    oneMonthAhead.setMonth(currentDate.getMonth() + 1);
-
-    if (cardDate > oneMonthAhead) {
-      alert("O cartão só pode ser cadastrado com um mês de antecedência.");
-      return;
-    }
-
-    if (!/^\d{3}$/.test(cvvCartao)) {
-      alert("O código de segurança (CVV) deve conter exatamente 3 números.");
-      return;
-    }
-
-    navigate("/");
-
-    // Aqui você pode enviar a informação para o backend, ou salvar o cartão
+    // alert("Cartão cadastrado com sucesso!");
+    // navigate("/");
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column min-vh-100 ">
       <HeaderLogs />
-      <div className="container d-flex flex-row justify-content align-items-start flex-grow-1 py-4">
+
+      <div className="container d-flex flex-row justify-content-center align-items-center flex-grow-1 py-4 gap-5">
         <form
           onSubmit={handleSubmit}
           className="position-relative rounded-1 p-4 d-flex flex-column justify-content-center align-items-center w-100"
@@ -109,90 +59,77 @@ const CadastroCartao = () => {
           />
           <div className="z-2 d-flex flex-column w-100 gap-3 justify-content-center align-items-center">
             <h3 className="text-uppercase text-center">Cadastro de Cartão</h3>
-
             <select
               className="form-select p-3 border-0 text-dark w-100"
               name="tipoCartao"
-              value={formData.tipoCartao}
-              onChange={handleInputChange}
+              // value={formData.tipoCartao}
+              // onChange={handleInputChange}
             >
               <option value="credito">Crédito</option>
               <option value="debito">Débito</option>
             </select>
 
-            <input
+            {/* Número do Cartão */}
+            <IMaskInput
+              mask="0000 0000 0000 0000"
+              value={cardData.number}
+              onAccept={(value) => setCardData({ ...cardData, number: value })}
+              onFocus={() => setCardData({ ...cardData, focus: "number" })}
+              name="number"
+              placeholder="Número"
               className="form-control inputLog p-3 border-0 text-light w-100"
-              type="text"
-              name="numeroCartao"
-              id="frmNumeroCartao"
-              placeholder="Nº do Cartão"
-              value={formData.numeroCartao}
-              onChange={handleInputChange}
-              maxLength="16"
             />
-
-            <input
-              className="form-control inputLog p-3 border-0 text-light w-100"
-              type="text"
-              name="nome"
-              id="frmNome"
-              placeholder="Nome do Titular"
-              value={formData.nome}
-              onChange={handleInputChange}
-              maxLength="10"
+            {/* Nome */}
+            <IMaskInput
+              mask={/^[A-Za-z\s]*$/}
+              value={cardData.name}
+              onAccept={(value) => setCardData({ ...cardData, name: value })}
+              onFocus={() => setCardData({ ...cardData, focus: "name" })}
+              name="name"
+              placeholder="Nome"
+              className="form-control inputLog p-3 border-0 text-light w-100 mt-3"
+              maxLength={18}
             />
-
-            <input
-              className="form-control inputLog p-3 border-0 text-light w-100"
-              type="text"
-              name="cpf"
-              id="frmCPF"
-              placeholder="CPF do Titular"
-              value={formData.cpf}
-              onChange={handleInputChange}
-              maxLength="11"
+            {/* Validade */}
+            <IMaskInput
+              mask="00/00"
+              blocks={{
+                MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
+                YY: { mask: IMask.MaskedRange, from: 24, to: 99 },
+              }}
+              value={cardData.expiry}
+              onAccept={(value) => setCardData({ ...cardData, expiry: value })}
+              onFocus={() => setCardData({ ...cardData, focus: "expiry" })}
+              name="expiry"
+              placeholder="Validade"
+              className="form-control inputLog p-3 border-0 text-light w-100 mt-3"
             />
-
-            <input
-              className="form-control inputLog p-3 border-0 text-light w-100"
-              type="text"
-              name="validade"
-              id="frmValidade"
-              placeholder="Data de Vencimento do Cartão (DD/MM/AA)"
-              value={formData.validade}
-              onChange={handleInputChange}
-              maxLength="10"
+            {/* CVC */}
+            <IMaskInput
+              mask="0000" // aceita 3 ou 4 dígitos
+              value={cardData.cvc}
+              onAccept={(value) => setCardData({ ...cardData, cvc: value })}
+              onFocus={() => setCardData({ ...cardData, focus: "cvc" })}
+              name="cvc"
+              placeholder="CVC"
+              className="form-control inputLog p-3 border-0 text-light w-100 mt-3"
             />
-
-            <input
-              className="form-control inputLog p-3 border-0 text-light w-100"
-              type="text"
-              name="cvvCartao"
-              id="frmCVVCartao"
-              placeholder="Código de Verificação (CVV)"
-              value={formData.cvvCartao}
-              onChange={handleInputChange}
-              maxLength="3"
-            />
-
-            {/* Exibir a bandeira do cartão */}
-            {cardBrand && (
-              <div className="mt-3">
-                <img
-                  src={`/path/to/icons/${cardBrand}.png`} // Caminho para os ícones das bandeiras
-                  alt={cardBrand}
-                  style={{ width: "50px" }}
-                />
-              </div>
-            )}
-
             <button type="submit" className="btn btn-success mt-4">
               Salvar Informações
             </button>
           </div>
         </form>
-        <Cartoes numeroCartao={formData.numeroCartao} cardBrand={cardBrand} />
+        <div className="" style={{ transform: "scale(1.4)", transformOrigin: "top Left" }}>
+          <Cards
+            number={cardData.number}
+            name={cardData.name}
+            expiry={cardData.expiry}
+            cvc={cardData.cvc}
+            focused={cardData.focus}
+          />
+        </div>
       </div>
+
       <Footer />
     </div>
   );

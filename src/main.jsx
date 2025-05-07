@@ -1,10 +1,7 @@
 import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
-
-// Stripe
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import "react-credit-cards-2/dist/es/styles-compiled.css";
 
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,15 +22,10 @@ import CadastroCartao from "./pages/CadastroCartao.jsx";
 // Contexto global acessível a todas as rotas
 export const GlobalContext = createContext(null);
 
-// Stripe Public Key
-const stripePromise = loadStripe(
-  "pk_test_51RLmBAFZd9YdmyP7RPfzInp3F5OIMUqBYy9ST8JLH5nb1e2h0ZuOSGjbfmuLOKLfm82tTBF0oKVGhCbjwxw48Jal00Mvwox9gl"
-);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <GlobalContext.Provider value={{ formatarMoeda }}>
-      <Elements stripe={stripePromise}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
@@ -46,7 +38,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </Elements>
     </GlobalContext.Provider>
   </React.StrictMode>
 );
