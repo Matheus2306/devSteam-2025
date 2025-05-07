@@ -3,18 +3,21 @@ import { useNavigate } from "react-router";
 import Footer from "../components/Footer";
 import HeaderLogs from "../components/HeaderLogs";
 
-const Login = () => {
+const Cadastrar = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleCadastro = (e) => {
     e.preventDefault();
-    // Lógica de login
-  };
-
-  const handleSignUp = () => {
-    navigate("/cadastrar"); // Redireciona para a página de cadastro
+    if (nome && email && telefone) {
+      localStorage.setItem(
+        "devCadastro",
+        JSON.stringify({ nome, email, telefone })
+      );
+      navigate("/");
+    }
   };
 
   return (
@@ -24,8 +27,8 @@ const Login = () => {
       <div className="container d-flex flex-column justify-content-center align-items-center flex-grow-1 py-4">
         <form
           className="position-relative rounded-1 p-4 d-flex flex-column justify-content-center align-items-center w-100"
-          style={{ maxWidth: "500px", minHeight: "400px" }}
-          onSubmit={handleLogin}
+          style={{ maxWidth: "500px", minHeight: "500px" }}
+          onSubmit={handleCadastro}
         >
           <div className="formsBg rounded-2 z-1 position-absolute w-100 h-100"></div>
           <img
@@ -35,7 +38,7 @@ const Login = () => {
           />
 
           <div className="z-2 d-flex flex-column w-100 gap-3 justify-content-center align-items-center">
-            <h3 className="text-uppercase text-center">Login</h3>
+            <h3 className="text-uppercase text-center">Cadastrar</h3>
 
             <input
               value={nome}
@@ -57,19 +60,19 @@ const Login = () => {
               placeholder="E-mail"
             />
 
+            <input
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              className="form-control inputLog p-3 border-0 text-light w-100"
+              type="tel"
+              name="frmTelefone"
+              id="frmTelefone"
+              placeholder="Telefone"
+            />
+
             <div className="d-flex flex-column gap-3 w-100 justify-content-center align-items-center">
-              <span className="text-center">
-                Não possui uma conta?{" "}
-                <span
-                  role="button"
-                  className="text-decoration-underline text-info"
-                  onClick={handleSignUp}
-                >
-                  Crie uma
-                </span>
-              </span>
               <button className="border-0 rounded btnColor text-light p-3 fs-5 w-100">
-                Entrar <i className="bi bi-arrow-bar-right"></i>
+                Cadastrar <i className="bi bi-arrow-bar-right"></i>
               </button>
             </div>
           </div>
@@ -81,4 +84,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Cadastrar;

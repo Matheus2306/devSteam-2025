@@ -4,8 +4,6 @@ import { Link } from "react-router";
 const Header = (props) => {
   const [usuario, setUsuario] = useState();
 
- 
-
   useEffect(() => {
     const salvaUsuario = localStorage.getItem("devlogin");
     salvaUsuario && setUsuario(JSON.parse(salvaUsuario));
@@ -25,7 +23,9 @@ const Header = (props) => {
             alt=""
             style={{ width: "75px", height: "75px" }}
           />
-          <span className="navbar-brand fw-bold fs-3 d-flex">RatZone <small className="fs-6 top-0">TM</small></span>
+          <span className="navbar-brand fw-bold fs-3 d-flex">
+            RatZone <small className="fs-6 top-0">TM</small>
+          </span>
         </div>
 
         <input
@@ -77,6 +77,11 @@ const Header = (props) => {
                     className="dropdown-item"
                   >
                     Sair
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/cadastro-cartao"} className="dropdown-item">
+                    Cadastrar Cartão
                   </Link>
                 </li>
               </ul>
