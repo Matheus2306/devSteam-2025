@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import HeaderLogs from "../components/HeaderLogs";
 import Footer from "../components/Footer";
@@ -15,30 +15,36 @@ const CadastroCartao = () => {
     cvc: "",
     focus: "",
   });
+
   const [bandeira, setBandeira] = useState("");
+
+  // Carrega dados salvos ao iniciar
+  useEffect(() => {
+    const cartaoSalvo = localStorage.getItem("cartaoSalvo");
+    if (cartaoSalvo) {
+      setCardData(JSON.parse(cartaoSalvo));
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const { nome, cpf, numeroCartao } = formData;
+    // Validação simples
+    if (
+      !cardData.name ||
+      !cardData.number ||
+      !cardData.expiry ||
+      !cardData.cvc
+    ) {
+      alert("Preencha todos os campos.");
+      return;
+    }
 
-    // if (!nome || nome.length < 3 || nome.length > 10) {
-    //   alert("O nome no cartão deve ter entre 3 e 10 caracteres.");
-    //   return;
-    // }
+    // Salva no localStorage
+    localStorage.setItem("cartaoSalvo", JSON.stringify(cardData));
 
-    // if (!/^\d{11}$/.test(cpf)) {
-    //   alert("O CPF deve conter exatamente 11 números.");
-    //   return;
-    // }
-
-    // if (!/^\d{16}$/.test(numeroCartao)) {
-    //   alert("O número do cartão deve conter exatamente 16 dígitos.");
-    //   return;
-    // }
-
-    // alert("Cartão cadastrado com sucesso!");
-    // navigate("/");
+    alert("Cartão salvo com sucesso no armazenamento local!");
+    navigate("/");
   };
 
   return (
@@ -62,8 +68,6 @@ const CadastroCartao = () => {
             <select
               className="form-select p-3 border-0 text-dark w-100"
               name="tipoCartao"
-              // value={formData.tipoCartao}
-              // onChange={handleInputChange}
             >
               <option value="credito">Crédito</option>
               <option value="debito">Débito</option>
@@ -106,7 +110,7 @@ const CadastroCartao = () => {
             />
             {/* CVC */}
             <IMaskInput
-              mask="0000" // aceita 3 ou 4 dígitos
+              mask="0000"
               value={cardData.cvc}
               onAccept={(value) => setCardData({ ...cardData, cvc: value })}
               onFocus={() => setCardData({ ...cardData, focus: "cvc" })}
@@ -119,7 +123,10 @@ const CadastroCartao = () => {
             </button>
           </div>
         </form>
-        <div className="" style={{ transform: "scale(1.4)", transformOrigin: "top Left" }}>
+        <div
+          className=""
+          style={{ transform: "scale(1.4)", transformOrigin: "top Left" }}
+        >
           <Cards
             number={cardData.number}
             name={cardData.name}
