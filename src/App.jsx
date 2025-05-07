@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import "./App.css";
 import Header from "./components/Header";
 import Promotion from "./components/Promotion";
@@ -10,10 +9,16 @@ import Footer from "./components/Footer";
 function App() {
   const [carrinhoItem, setCarrinhoItem] = useState([]);
 
+  // Este useEffect é executado sempre que o estado `carrinhoItem` muda.
+  // Ele salva o estado atual do carrinho no localStorage com a chave "devcarrinho".
+  // Isso garante que o estado do carrinho persista entre recarregamentos da página.
   useEffect(() => {
     localStorage.setItem("devcarrinho", JSON.stringify(carrinhoItem));
   }, [carrinhoItem]);
 
+  // Este useEffect é executado uma vez quando o componente é montado (array de dependências vazio).
+  // Ele recupera o estado salvo do carrinho no localStorage (se existir) e atualiza o estado `carrinhoItem`.
+  // Isso permite que o aplicativo carregue o estado anterior do carrinho quando o usuário revisitar a página.
   useEffect(() => {
     const salvaCarrinho = localStorage.getItem("devcarrinho");
     salvaCarrinho && setCarrinhoItem(JSON.parse(salvaCarrinho));
@@ -54,6 +59,7 @@ function App() {
 
   return (
     <>
+
       <Header contadorJogos={carrinhoItem.length} />
       <Promotion
         onAddCarrinho={handleAddCarrinho} //adicionando o click para promoção

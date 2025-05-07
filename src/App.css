@@ -63,7 +63,7 @@ input.form-control:focus {
 .gradientFundo {
   background: linear-gradient(
     180deg,
-    rgba(76, 113, 158, 0.6) 0%,
+    rgba(76, 113, 158, 0.2) 0%,
     rgba(27, 40, 56, 1) 100%
   );
 }
