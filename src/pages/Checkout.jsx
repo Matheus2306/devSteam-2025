@@ -273,7 +273,7 @@ const Checkout = () => {
                 style={{
                   background: isHovered && "#2a475e",
                   borderColor: "#2a475e",
-                  color: !isHovered && "#2a475e",
+                  color: !isHovered && "#fff",
                 }}
                 className="btn btn-outline-secondary w-100 mt-2"
                 onMouseEnter={() => setIsHovered(true)}
