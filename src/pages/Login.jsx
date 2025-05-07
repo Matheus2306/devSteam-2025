@@ -10,7 +10,10 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Lógica de login
+    if (nome && email) {
+      localStorage.setItem("devlogin", JSON.stringify({ nome, email }));
+      navigate("/");
+    }
   };
 
   const handleSignUp = () => {
@@ -24,7 +27,7 @@ const Login = () => {
       <div className="container d-flex flex-column justify-content-center align-items-center flex-grow-1 py-4">
         <form
           className="position-relative rounded-1 p-4 d-flex flex-column justify-content-center align-items-center w-100"
-          style={{ maxWidth: "500px", minHeight: "400px" }}
+          style={{ maxWidth: "500px", minHeight: "450px" }}
           onSubmit={handleLogin}
         >
           <div className="formsBg rounded-2 z-1 position-absolute w-100 h-100"></div>
@@ -35,7 +38,7 @@ const Login = () => {
           />
 
           <div className="z-2 d-flex flex-column w-100 gap-3 justify-content-center align-items-center">
-            <h3 className="text-uppercase text-center">Login</h3>
+            <h3 className="text-uppercase text-center">Entrar</h3>
 
             <input
               value={nome}
