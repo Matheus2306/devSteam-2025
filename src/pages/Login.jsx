@@ -18,6 +18,8 @@ const Login = () => {
     const usuarioValido = cadastros.find(
       (cadastro) => cadastro.email === email && cadastro.senha === senha
     );
+    //salva o usuário logado no localStorage
+    localStorage.setItem("devlogin", JSON.stringify(usuarioValido));
   
     if (usuarioValido) {
       alert("Login realizado com sucesso!");

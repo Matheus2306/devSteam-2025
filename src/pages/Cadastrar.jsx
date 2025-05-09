@@ -48,7 +48,7 @@ const Cadastrar = () => {
   
       // Salva a lista atualizada no localStorage
       localStorage.setItem("devCadastro", JSON.stringify(cadastrosExistentes));
-      navigate("/");
+      navigate("/login");
     } else {
       alert("Preencha todos os campos!");
     }
