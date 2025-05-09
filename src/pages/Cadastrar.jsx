@@ -4,19 +4,53 @@ import Footer from "../components/Footer";
 import HeaderLogs from "../components/HeaderLogs";
 
 const Cadastrar = () => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [nome, setNome] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [senha, setSenha] = useState([]);
+  const [telefone, setTelefone] = useState([]);
+  const [Id, setId] = useState([]);
   const navigate = useNavigate();
+
+  // Gera um ID único para o usuário
+  const gerarId = () => {
+    const id = Math.floor(Math.random() * 1000000); // Gera um número aleatório entre 0 e 999999
+    setId(id); // Atualiza o estado com o ID gerado
+    return id; // Retorna o ID gerado
+  };
 
   const handleCadastro = (e) => {
     e.preventDefault();
-    if (nome && email && telefone) {
-      localStorage.setItem(
-        "devCadastro",
-        JSON.stringify({ nome, email, telefone })
+  
+    if (nome && email && telefone && senha) {
+      const novoCadastro = {
+        Id: gerarId(),
+        nome,
+        email,
+        senha,
+        telefone,
+      };
+  
+      // Recupera cadastros existentes do localStorage
+      const cadastrosExistentes = JSON.parse(localStorage.getItem("devCadastro")) || [];
+  
+      // Verifica se o e-mail já está cadastrado
+      const emailJaCadastrado = cadastrosExistentes.some(
+        (cadastro) => cadastro.email === email
       );
+  
+      if (emailJaCadastrado) {
+        alert("E-mail já cadastrado!");
+        return;
+      }
+  
+      // Adiciona o novo cadastro à lista
+      cadastrosExistentes.push(novoCadastro);
+  
+      // Salva a lista atualizada no localStorage
+      localStorage.setItem("devCadastro", JSON.stringify(cadastrosExistentes));
       navigate("/");
+    } else {
+      alert("Preencha todos os campos!");
     }
   };
 
@@ -58,6 +92,16 @@ const Cadastrar = () => {
               name="frmEmail"
               id="frmEmail"
               placeholder="E-mail"
+            />
+
+            <input
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              className="form-control inputLog p-3 border-0 text-light w-100"
+              type="password"
+              name="frmSenha"
+              id="frmSenha"
+              placeholder="Senha"
             />
 
             <input

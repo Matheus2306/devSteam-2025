@@ -11,7 +11,7 @@ const CarrinhoOffCanvas = (props) => {
       acc + (item.preco - (item.preco * item.desconto) / 100) * item.quantidade,
     0
   );
-  console.log(props.carrinhoItem);
+
   const goToCheckout = () => {
     navigate("/checkout");
   };

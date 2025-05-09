@@ -4,10 +4,10 @@ import { Link } from "react-router";
 const Header = (props) => {
   const [usuario, setUsuario] = useState();
 
-  useEffect(() => {
-    const salvaUsuario = localStorage.getItem("devlogin");
-    salvaUsuario && setUsuario(JSON.parse(salvaUsuario));
-  }, []);
+  const salvaUsuario = localStorage.getItem("devcadastro");
+  // Verifica se o usuário está logado e atualiza o estado
+  // Se o usuário estiver logado, salva no estado
+  salvaUsuario && setUsuario(JSON.parse(salvaUsuario));
 
   return (
     <header className="pt-4 w-100 navbar navbar-dark bg-dark justify-content-around align-items-center">

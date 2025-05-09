@@ -4,15 +4,18 @@ import Footer from "../components/Footer";
 import HeaderLogs from "../components/HeaderLogs";
 
 const Login = () => {
-  const [nome, setNome] = useState("");
+  const[senha, setSenha] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
+   //procura no localStorage o cadastro
+    const cadastro = JSON.parse(localStorage.getItem("devCadastro"));
     e.preventDefault();
-    if (nome && email) {
-      localStorage.setItem("devlogin", JSON.stringify({ nome, email }));
-      navigate("/");
+    if (email === cadastro.email && senha === cadastro.senha) {
+      navigate("/"); // Redireciona para a página inicial
+    } else {
+      alert("E-mail ou senha incorretos!");
     }
   };
 
@@ -41,16 +44,6 @@ const Login = () => {
             <h3 className="text-uppercase text-center">Entrar</h3>
 
             <input
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              className="form-control inputLog p-3 border-0 text-light w-100"
-              type="text"
-              name="frmNome"
-              id="frmNome"
-              placeholder="Nome de usuário"
-            />
-
-            <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="form-control inputLog p-3 border-0 text-light w-100"
@@ -58,6 +51,16 @@ const Login = () => {
               name="frmEmail"
               id="frmEmail"
               placeholder="E-mail"
+            />
+
+            <input
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              className="form-control inputLog p-3 border-0 text-light w-100"
+              type="password"
+              name="frmSenha"
+              id="frmSenha"
+              placeholder="Senha"
             />
 
             <div className="d-flex flex-column gap-3 w-100 justify-content-center align-items-center">
