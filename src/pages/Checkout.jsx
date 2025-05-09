@@ -26,9 +26,15 @@ const Checkout = () => {
   }, [navigate]);
 
   const handleConfirmar = () => {
-    alert("Compra confirmada! Obrigado 😊");
-    localStorage.removeItem("devcarrinho");
-    navigate("/");
+    const usuarioLogado = JSON.parse(localStorage.getItem("devlogin"));
+    if (!usuarioLogado) {
+      alert("Você precisa estar logado para finalizar a compra.");
+      return;
+    } else {
+      alert("Compra confirmada! Obrigado 😊");
+      localStorage.removeItem("devcarrinho");
+      navigate("/");
+    }
   };
 
   const handleUpdateQuantidade = (item, novaQuantidade) => {

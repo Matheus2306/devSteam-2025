@@ -9,7 +9,7 @@ const Header = (props) => {
     if (usuarioLogado) {
       setUsuario(JSON.parse(usuarioLogado));
     }
-  });
+  }, []);
 
   return (
     <header className="pt-4 w-100 navbar navbar-dark bg-dark justify-content-around align-items-center">
@@ -41,7 +41,7 @@ const Header = (props) => {
         {usuario ? (
           <span className="d-flex align-items-center gap-2 me-0 me-md-5">
             <span className="d-none d-md-block">
-              Olá, {usuario.nome.split(" ")[0]}!{" "}
+              Olá, {usuario.nome.slpit(" ")[0]}!
             </span>
             <div className="dropdown">
               <div
