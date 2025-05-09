@@ -9,10 +9,18 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-   //procura no localStorage o cadastro
-    const cadastro = JSON.parse(localStorage.getItem("devCadastro"));
     e.preventDefault();
-    if (email === cadastro.email && senha === cadastro.senha) {
+  
+    // Recupera todos os cadastros do localStorage
+    const cadastros = JSON.parse(localStorage.getItem("devCadastro")) || [];
+  
+    // Verifica se o e-mail e a senha correspondem a algum cadastro
+    const usuarioValido = cadastros.find(
+      (cadastro) => cadastro.email === email && cadastro.senha === senha
+    );
+  
+    if (usuarioValido) {
+      alert("Login realizado com sucesso!");
       navigate("/"); // Redireciona para a página inicial
     } else {
       alert("E-mail ou senha incorretos!");
