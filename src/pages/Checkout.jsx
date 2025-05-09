@@ -17,6 +17,14 @@ const Checkout = () => {
     0
   );
 
+  const primeiro =(item)=>{
+
+    const primeiraImagem = Array.isArray(item.imagem)
+    ? item.imagem[0]
+    : item.imagem;
+    return primeiraImagem;
+  }
+
   const descontoCupom = cupomAplicado ? subtotal * 0.1 : 0;
   const total = subtotal - descontoCupom;
 
@@ -104,7 +112,7 @@ const Checkout = () => {
                     <div key={item.id} className="row mb-4 position-relative">
                       <div className="col-md-2 col-4">
                         <img
-                          src={item.imagem}
+                          src={primeiro(item)}
                           alt={item.titulo}
                           className="img-fluid rounded-3 object-fit-cover"
                           style={{ height: "100px", width: "100%" }}
