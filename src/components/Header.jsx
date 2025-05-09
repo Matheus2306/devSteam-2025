@@ -41,7 +41,7 @@ const Header = (props) => {
         {usuario ? (
           <span className="d-flex align-items-center gap-2 me-0 me-md-5">
             <span className="d-none d-md-block">
-              Olá, {usuario.nome.slpit(" ")[0]}!
+              Olá, {usuario.nome.split(" ")[0]}!
             </span>
             <div className="dropdown">
               <div
