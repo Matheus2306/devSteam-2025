@@ -20,7 +20,7 @@ const Cadastrar = () => {
   };
   // gera uma role padrao
   const gerarRole = () => {
-    const role = "ADM"; // Define o papel padrão como "adm"
+    const role = "User"; // Define o papel padrão como "adm"
     setRole(role); // Atualiza o estado com o papel gerado
     return role; // Retorna o papel gerado
   };
