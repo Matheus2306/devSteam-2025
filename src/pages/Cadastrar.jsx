@@ -8,6 +8,7 @@ const Cadastrar = () => {
   const [email, setEmail] = useState([]);
   const [senha, setSenha] = useState([]);
   const [telefone, setTelefone] = useState([]);
+  const [Role, setRole ]= useState([]); // Define o papel padrão como "adm"
   const [Id, setId] = useState([]);
   const navigate = useNavigate();
 
@@ -17,6 +18,13 @@ const Cadastrar = () => {
     setId(id); // Atualiza o estado com o ID gerado
     return id; // Retorna o ID gerado
   };
+  // gera uma role padrao
+  const gerarRole = () => {
+    const role = "ADM"; // Define o papel padrão como "adm"
+    setRole(role); // Atualiza o estado com o papel gerado
+    return role; // Retorna o papel gerado
+  };
+
 
   const handleCadastro = (e) => {
     e.preventDefault();
@@ -24,6 +32,7 @@ const Cadastrar = () => {
     if (nome && email && telefone && senha) {
       const novoCadastro = {
         Id: gerarId(),
+        Role: gerarRole(),
         nome,
         email,
         senha,
