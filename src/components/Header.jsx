@@ -86,6 +86,13 @@ const Header = (props) => {
                     Cadastrar Cartão
                   </Link>
                 </li>
+                {usuario.Role === "ADM" && (
+                  <li>
+                    <Link to={"/geriradm"} className="dropdown-item">
+                      Gerir ADM
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </span>
