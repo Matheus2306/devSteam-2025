@@ -457,3 +457,8 @@ input.form-control:focus {
   color: transparent;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
 }
+
+.create{
+background: linear-gradient(180deg, #2d3b4a 50%, #3d4f63 90%);
+
+}
