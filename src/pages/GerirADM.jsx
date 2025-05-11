@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router";
-import NotFound from "./NotFound"; // Ajuste o caminho conforme necessário
+import NotFound from "./NotFound";
 import HeaderLogs from "../components/HeaderLogs";
 import Create from "../components/Create";
 
 const GerirADM = () => {
-  // Resgatar o usuário logado
   const [usuario, setUsuario] = useState("");
 
   useEffect(() => {
@@ -15,15 +13,29 @@ const GerirADM = () => {
     }
   }, []);
 
+  const handleCreate = (data) => {
+    const { input1, input2, input3 } = data;
+
+    const novoCupom = {
+      nome: input1,
+      desconto: input2,
+      valido: input3,
+    };
+
+    const cuponsExistentes = JSON.parse(localStorage.getItem("devCupom")) || [];
+    cuponsExistentes.push(novoCupom);
+    localStorage.setItem("devCupom", JSON.stringify(cuponsExistentes));
+  };
+
   return (
-    <div >
+    <div>
       {usuario.Role === "ADM" ? (
         <div className="w-100 vh-100">
           <HeaderLogs />
-          <Create title={"Cupons"}/>
+          <Create title={"Cupons"} handleCreate={handleCreate} />
         </div>
       ) : (
-        <NotFound /> // Renderiza o componente NotFound se o usuário não for ADM
+        <NotFound />
       )}
     </div>
   );

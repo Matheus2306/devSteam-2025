@@ -462,3 +462,7 @@ input.form-control:focus {
 background: linear-gradient(180deg, #2d3b4a 50%, #3d4f63 90%);
 
 }
+
+.cupons{
+  background: #3d4f63;
+}
