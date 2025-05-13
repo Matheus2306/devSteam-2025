@@ -10,7 +10,31 @@ const Perfil = () => {
   useEffect(() => {
     const salvaUsuario = localStorage.getItem("devlogin");
     if (salvaUsuario) {
-      setUsuario(JSON.parse(salvaUsuario)); // Carrega o nome do usuário do localStorage
+      const usuarioLogado = JSON.parse(salvaUsuario);
+      setUsuario(usuarioLogado);
+
+      try {
+        // Carrega os jogos comprados do localStorage
+        const compras = JSON.parse(localStorage.getItem("devcompras")) || {};
+        const jogosUsuario = compras[usuarioLogado.nome] || [];
+        
+        // Garante que os jogos sejam únicos e mapeia para as imagens corretas
+        const jogosUnicos = jogosUsuario.reduce((acc, jogo) => {
+          if (!acc.some((item) => item.id === jogo.id)) {
+            acc.push(jogo);
+          }
+          return acc;
+        }, []);
+        
+        setRandomGames(jogosUnicos);
+
+        // Atualiza o localStorage com os jogos do usuário
+        compras[usuarioLogado.nome] = jogosUnicos;
+        localStorage.setItem("devcompras", JSON.stringify(compras));
+      } catch (error) {
+        console.error("Erro ao carregar as compras do localStorage:", error);
+        setRandomGames([]); // Garante que a lista de jogos seja vazia em caso de erro
+      }
     }
   }, []);
 
@@ -64,86 +88,6 @@ const Perfil = () => {
       picture: "https://placehold.co/74x74",
     },
   ];
-
-  const games = React.useMemo(
-    () => [
-      {
-        id: 1,
-        titulo: "Counter-Strike 2",
-        tempoDeJogo: "2h",
-        ultimaVezJogado: "Ontem",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg",
-      },
-      {
-        id: 2,
-        titulo: "Cyberpunk 2077",
-        tempoDeJogo: "5h",
-        ultimaVezJogado: "Hoje",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg",
-      },
-      {
-        id: 3,
-        titulo: "Elden Ring",
-        tempoDeJogo: "10h",
-        ultimaVezJogado: "30/03/2025",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg",
-      },
-      {
-        id: 4,
-        titulo: "Red Dead Redemption 2",
-        tempoDeJogo: "12h",
-        ultimaVezJogado: "02/05/2025",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg",
-      },
-      {
-        id: 5,
-        titulo: "Hogwarts Legacy",
-        tempoDeJogo: "8h",
-        ultimaVezJogado: "28/03/2025",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg",
-      },
-      {
-        id: 6,
-        titulo: "The Witcher 3: Wild Hunt",
-        tempoDeJogo: "15h",
-        ultimaVezJogado: "17/03/2025",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg",
-      },
-      {
-        id: 7,
-        titulo: "God of War",
-        tempoDeJogo: "25h",
-        ultimaVezJogado: "06/03/2025",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg",
-      },
-      {
-        id: 8,
-        titulo: "FIFA 25",
-        tempoDeJogo: "120h",
-        ultimaVezJogado: "10/03/2025",
-        imagem:
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/2195250/header.jpg",
-      },
-    ],
-    []
-  );
-
-  useEffect(() => {
-    const sortedGames = [...games].sort(
-      (a, b) => parseInt(b.tempoDeJogo) - parseInt(a.tempoDeJogo)
-    );
-    const topGames = sortedGames.slice(0, 2); // Fixar os 2 mais jogados
-    const remainingGames = sortedGames.slice(2);
-    const shuffledGames = [...remainingGames].sort(() => 0.5 - Math.random());
-    setRandomGames([...topGames, ...shuffledGames.slice(0, 2)]); // Adicionar 2 sorteados
-  }, [games]);
 
   return (
     <>
@@ -200,38 +144,52 @@ const Perfil = () => {
             ))}
           </div>
         </div>
-        <div id="outrosJogos" className="container w-75 my-5 ">
+        <div id="outrosJogos" className="container w-75 my-5">
           <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
             Seus Jogos:
           </h2>
-          <div
-            id="itensJogos"
-            className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 g-4"
-          >
-            {randomGames.map((item) => (
-              <div
-                id="cardsJogos"
-                key={item.id}
-                className="d-flex flex-column justify-content-end col"
-              >
-                <div className="d-flex flex-column justify-content-end card bg-dark text-light p-3">
-                  <img
-                    src={item.imagem}
-                    alt={item.titulo}
-                    className="img-fluid rounded mb-3"
-                  />
-                  <h5 className="card-title">{item.titulo}</h5>
-                  <p className="card-text">Tempo de Jogo: {item.tempoDeJogo}</p>
-                  <p className="card-text">
-                    Última Vez Jogado: {item.ultimaVezJogado}
-                  </p>
-                  {item.categoria && (
-                    <p className="card-text">Categoria: {item.categoria}</p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          {randomGames.length === 0 ? (
+            <p className="text-center">Você ainda não comprou nenhum jogo.</p>
+          ) : (
+            <div
+              id="itensJogos"
+              className="d-flex flex-column gap-3"
+              style={{
+                maxHeight: "400px",
+                overflowY: "auto",
+              }}
+            >
+              {randomGames.map((item) => {
+                const primeiraImagem = Array.isArray(item.imagem)
+                  ? item.imagem[0]
+                  : item.imagem; // Adjusted logic to handle array or single image
+
+                return (
+                  <div
+                    id="cardsJogos"
+                    key={item.id}
+                    className="d-flex align-items-center bg-dark text-light p-3 rounded"
+                    style={{
+                      height: "120px",
+                      width: "100%",
+                    }}
+                  >
+                    <img
+                      src={primeiraImagem} // Use the adjusted logic for the image
+                      alt={item.titulo}
+                      className="me-3 rounded"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <h5 className="mb-0">{item.titulo}</h5>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 

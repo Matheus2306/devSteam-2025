@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound.jsx";
 import CadastroCartao from "./pages/CadastroCartao.jsx";
 import Cadastrar from "./pages/Cadastrar.jsx";
 import GerirADM from "./pages/GerirADM.jsx";
+import PedidoConfirmado from "./pages/PedidoConfirmado.jsx";    
 
 // Contexto global acessível a todas as rotas
 export const GlobalContext = createContext(null);
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/cadastro-cartao" element={<CadastroCartao />} />
             <Route path="/geriradm" element={<GerirADM/>} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/pedido-confirmado" element={<PedidoConfirmado />} />
           </Routes>
         </BrowserRouter>
     </GlobalContext.Provider>
