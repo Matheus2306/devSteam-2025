@@ -13,18 +13,56 @@ const GerirADM = () => {
     }
   }, []);
 
-  const handleCreate = (data) => {
-    const { input1, input2, input3 } = data;
+  const [cupons, setCupons] = useState([]);
 
-    const novoCupom = {
-      nome: input1,
-      desconto: input2,
-      valido: input3,
-    };
-
+  // Buscar os cupons no localStorage ao carregar o componente
+  useEffect(() => {
     const cuponsExistentes = JSON.parse(localStorage.getItem("devCupom")) || [];
-    cuponsExistentes.push(novoCupom);
-    localStorage.setItem("devCupom", JSON.stringify(cuponsExistentes));
+    setCupons(cuponsExistentes);
+  }, []);
+
+  // Atualizar o estado e o localStorage ao criar um novo cupom
+  const handleCreate = (data) => {
+    // Verifica se os campos estão preenchidos
+    if (!data.input1 || !data.input2) {
+      alert("Preencha todos os campos!");
+    } else {
+      const novoCupom = {
+        nome: data.input1,
+        desconto: data.input2,
+        validade: data.input3,
+        valido: true,
+      };
+
+      //verifica se o cupom ja existe
+      const cupomExistente = cupons.find(
+        (cupom) => cupom.nome === novoCupom.nome
+      );
+      if (cupomExistente) {
+        alert("Esse cupom já existe!");
+        return;
+      } else {
+        const novosCupons = [...cupons, novoCupom];
+        setCupons(novosCupons);
+        localStorage.setItem("devCupom", JSON.stringify(novosCupons));
+      }
+    }
+  };
+
+  // Atualizar o estado e o localStorage ao excluir um cupom
+  const deleteCupons = (index) => {
+    const novosCupons = [...cupons];
+    novosCupons.splice(index, 1);
+    setCupons(novosCupons);
+    localStorage.setItem("devCupom", JSON.stringify(novosCupons));
+  };
+
+  // Alternar a validade de um cupom
+  const toggleValidade = (index) => {
+    const novosCupons = [...cupons];
+    novosCupons[index].valido = !novosCupons[index].valido; // Alterna entre true e false
+    setCupons(novosCupons);
+    localStorage.setItem("devCupom", JSON.stringify(novosCupons)); // Atualiza o localStorage
   };
 
   return (
@@ -32,7 +70,7 @@ const GerirADM = () => {
       {usuario.Role === "ADM" ? (
         <div className="w-100 vh-100">
           <HeaderLogs />
-          <Create title={"Cupons"} handleCreate={handleCreate} />
+          <Create title={"Cupom"}  handleCreate={handleCreate} deleteCupons={deleteCupons} toggleValidade={toggleValidade} cupom={cupons}/>
         </div>
       ) : (
         <NotFound />

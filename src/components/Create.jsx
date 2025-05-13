@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ModalCreate from "./ModalCreate";
 
 const Create = (props) => {
-//buscar os cupons no localStorage
-  const cuponsExistentes = JSON.parse(localStorage.getItem("devCupom")) || [];
-  //se o usuario criar um cupom ele atuliza a pagina
-  
-
-
+ 
 
   return (
-    <div className="w-25 h-100 overflow-y-hidden create m-3 rounded-3" id="Create">
+    <div
+      className="w-25 h-75 overflow-y-hidden create m-3 rounded-3"
+      id="Create"
+    >
       <div className="d-flex flex-column justify-content-center align-items-center">
         <div
           id="headerCreate"
@@ -26,19 +24,44 @@ const Create = (props) => {
             <i className="bi bi-plus fs-3"></i>
           </span>
         </div>
-        
       </div>
-      <div className="w-100 h-100 d-flex flex-column  align-items-center">
-        {cuponsExistentes.length === 0 ? (
-          <h3 className="text-white">Nenhum cupom cadastrado</h3>
+      <div
+        className="w-100 h-100 d-flex flex-column align-items-center overflow-auto"
+        id="cuponsContainer"
+        style={{ maxHeight: "690px" }}
+      >
+        {props.cupom.length === 0 ? (
+          <h3 className="text-white fs-5 my-2">Nenhum {props.title} cadastrado</h3>
         ) : (
-          cuponsExistentes.map((cupom, index) => (
+          props.cupom.map((cupom, index) => (
             <div
               key={index}
-              className="w-100 d-flex justify-content-around cupons my-3 align-items-center rounded-3 p-2 my-2"
+              className="w-100 d-flex justify-content-between cupons my-2 align-items-center rounded-3 p-2 my-2"
             >
-              <h4 className="text-white">{cupom.nome}</h4>
-              <span className="text-light bg-success p-2 rounded-1">{cupom.desconto}%</span>
+              <h4 className="text-white mx-3 fs-5">{cupom.nome}</h4>
+              <h4 className="text-white mx-3">
+                {cupom.validade === "" ? (
+                  <span className=""></span>
+                ) : (
+                  <span className="fs-6 text-light">{cupom.validade}</span>
+                )}
+              </h4>
+              <div className="d-flex align-items-center mx-5 gap-3">
+                <span className="text-light bg-success p-2 rounded-1">
+                  {cupom.desconto}%
+                </span>
+                <input
+                  type="checkbox"
+                  checked={cupom.valido}
+                  onChange={() => props.toggleValidade(index)} // Chama a função ao alterar o estado
+                  className="form-check-input mx-2 shadow-none bg-dark border-0 fs-5 m-0"
+                />
+                <i
+                  className="bi bi-trash text-danger fs-5"
+                  role="button"
+                  onClick={() => props.deleteCupons(index)}
+                ></i>
+              </div>
             </div>
           ))
         )}

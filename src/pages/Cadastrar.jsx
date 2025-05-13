@@ -8,7 +8,7 @@ const Cadastrar = () => {
   const [email, setEmail] = useState([]);
   const [senha, setSenha] = useState([]);
   const [telefone, setTelefone] = useState([]);
-  const [Role, setRole ]= useState([]); // Define o papel padrão como "adm"
+  const [Role, setRole] = useState([]); // Define o papel padrão como "adm"
   const [Id, setId] = useState([]);
   const navigate = useNavigate();
 
@@ -25,10 +25,9 @@ const Cadastrar = () => {
     return role; // Retorna o papel gerado
   };
 
-
   const handleCadastro = (e) => {
     e.preventDefault();
-  
+
     if (nome && email && telefone && senha) {
       const novoCadastro = {
         Id: gerarId(),
@@ -38,26 +37,30 @@ const Cadastrar = () => {
         senha,
         telefone,
       };
-  
+
       // Recupera cadastros existentes do localStorage
-      const cadastrosExistentes = JSON.parse(localStorage.getItem("devCadastro")) || [];
-  
+      const cadastrosExistentes =
+        JSON.parse(localStorage.getItem("devCadastro")) || [];
+
       // Verifica se o e-mail já está cadastrado
       const emailJaCadastrado = cadastrosExistentes.some(
         (cadastro) => cadastro.email === email
       );
-  
+
       if (emailJaCadastrado) {
         alert("E-mail já cadastrado!");
         return;
+      } else {
+        // Adiciona o novo cadastro à lista
+        cadastrosExistentes.push(novoCadastro);
+
+        // Salva a lista atualizada no localStorage
+        localStorage.setItem(
+          "devCadastro",
+          JSON.stringify(cadastrosExistentes)
+        );
+        navigate("/login");
       }
-  
-      // Adiciona o novo cadastro à lista
-      cadastrosExistentes.push(novoCadastro);
-  
-      // Salva a lista atualizada no localStorage
-      localStorage.setItem("devCadastro", JSON.stringify(cadastrosExistentes));
-      navigate("/login");
     } else {
       alert("Preencha todos os campos!");
     }
