@@ -81,11 +81,6 @@ const Header = (props) => {
                     Sair
                   </Link>
                 </li>
-                <li>
-                  <Link to={"/cadastro-cartao"} className="dropdown-item">
-                    Cadastrar Cartão
-                  </Link>
-                </li>
                 {usuario.Role === "ADM" && (
                   <li>
                     <Link to={"/geriradm"} className="dropdown-item">

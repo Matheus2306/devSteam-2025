@@ -43,7 +43,7 @@ const CadastroCartao = () => {
     // Salva no localStorage
     localStorage.setItem("cartaoSalvo", JSON.stringify(cardData));
 
-    alert("Cartão salvo com sucesso no armazenamento local!");
+    alert("Cartão salvo com sucesso");
     navigate("/");
   };
 

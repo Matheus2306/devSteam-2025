@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import GameCard from "../components/GameCard";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router";
 
 const Perfil = () => {
   const [randomGames, setRandomGames] = useState([]);
   const [usuario, setUsuario] = useState(null); // Estado para armazenar o usuário
   const [showButtons, setShowButtons] = useState(false); // State to toggle button visibility
+  const navigate = useNavigate(); // Corrigido para chamar useNavigate corretamente
 
   useEffect(() => {
     const salvaUsuario = localStorage.getItem("devlogin");
@@ -18,7 +20,7 @@ const Perfil = () => {
         // Carrega os jogos comprados do localStorage
         const compras = JSON.parse(localStorage.getItem("devcompras")) || {};
         const jogosUsuario = compras[usuarioLogado.nome] || [];
-        
+
         // Garante que os jogos sejam únicos e mapeia para as imagens corretas
         const jogosUnicos = jogosUsuario.reduce((acc, jogo) => {
           if (!acc.some((item) => item.id === jogo.id)) {
@@ -26,7 +28,7 @@ const Perfil = () => {
           }
           return acc;
         }, []);
-        
+
         setRandomGames(jogosUnicos);
 
         // Atualiza o localStorage com os jogos do usuário
@@ -96,42 +98,63 @@ const Perfil = () => {
       <div className="container py-5 w-100 d-flex align-items-start m-5">
         <div className="d-flex align-items-center">
           <img
-            src={`https://ui-avatars.com/api/?name=${usuario?.nome || "Usuário"}&background=2b87ae&color=fff`} // Dynamically generate avatar
+            src={`https://ui-avatars.com/api/?name=${
+              usuario?.nome || "Usuário"
+            }&background=2b87ae&color=fff`} // Dynamically generate avatar
             alt={usuario?.nome || "Usuário"}
             className="rounded-circle"
             width="100"
             height="100"
           />
-          <div className="ms-3 d-flex flex-column justify-content-center">
+          <div className="ms-3 d-flex flex-column justify-content-center position-relative">
             <h2 className="d-flex align-items-center">
-              {usuario?.nome || "Usuário"} {/* Exibe o nome do usuário ou "Usuário" */}
+              {usuario?.nome || "Usuário"}{" "}
+              {/* Exibe o nome do usuário ou "Usuário" */}
               <button
                 className="btn btn-link ms-2"
                 type="button"
-                onClick={() => setShowButtons(!showButtons)} // Toggle card visibility
+                onClick={() => setShowButtons((prevState) => !prevState)} // Toggle dropdown visibility
+                aria-expanded={showButtons} // Accessibility attribute
               >
-                <i className={`bi ${showButtons ? "bi-caret-up-fill" : "bi-caret-down-fill"}`}></i>
+                <i
+                  className={`bi ${
+                    showButtons ? "bi-caret-up-fill" : "bi-caret-down-fill"
+                  }`}
+                ></i>
               </button>
             </h2>
-            {showButtons && ( // Conditionally render the expanding card
+            {showButtons && ( // Conditionally render the dropdown menu
               <div
-                className="card mt-2 p-3"
+                className="card p-3 position-absolute"
                 style={{
+                  top: "calc(100% + 10px)", // Position below the name and icon with spacing
+                  left: "0",
                   width: "300px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                  zIndex: 10,
                 }}
               >
                 <button
                   className="btn btn-primary mb-2"
                   type="button"
-                  onClick={() => alert("Cadastrar Cartão clicado!")}
+                  onClick={() => alert("Editar Perfil clicado!")} // New option for editing profile
+                >
+                  Editar Perfil
+                </button>
+                <button
+                  className="btn btn-primary mb-2"
+                  type="button"
+                  onClick={() => navigate("/cadastro-cartao")} // Redireciona para a página de cadastro de cartão
                 >
                   Cadastrar Cartão
                 </button>
                 <button
                   className="btn btn-danger"
                   type="button"
-                  onClick={() => alert("Excluir Cartão clicado!")}
+                  onClick={() => {
+                    localStorage.removeItem("cartaoSalvo"); // Remove o cartão do localStorage
+                    alert("Cartão excluído com sucesso!");
+                  }}
                 >
                   Excluir Cartão
                 </button>
@@ -189,7 +212,9 @@ const Perfil = () => {
               }}
             >
               {randomGames.map((item) => {
-                const primeiraImagem = Array.isArray(item.imagem) ? item.imagem[0] : item.imagem; // Handle array of images
+                const primeiraImagem = Array.isArray(item.imagem)
+                  ? item.imagem[0]
+                  : item.imagem; // Handle array of images
                 return (
                   <div
                     id="cardsJogos"
