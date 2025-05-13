@@ -67,6 +67,12 @@ const PedidoConfirmado = () => {
             será mais possível o reembolso!
           </p>
         </div>
+      <div className="d-flex justify-content-center mt-4">
+          <a href="/" className="btn btn-danger p-3">
+            Voltar
+          </a>
+      </div>
+        
       </main>
 
       {/* Footer */}
