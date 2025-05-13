@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 const Perfil = () => {
   const [randomGames, setRandomGames] = useState([]);
   const [usuario, setUsuario] = useState(null); // Estado para armazenar o usuário
+  const [showButtons, setShowButtons] = useState(false); // State to toggle button visibility
 
   useEffect(() => {
     const salvaUsuario = localStorage.getItem("devlogin");
@@ -93,22 +94,50 @@ const Perfil = () => {
     <>
       <Header />
       <div className="container py-5 w-100 d-flex align-items-start m-5">
-        <img src="https://placehold.co/100x100" alt="" className="me-3" />
-        <div>
-          <h2>
-            {usuario?.nome || "Usuário"} {/* Exibe o nome do usuário ou "Usuário" */}
-            <button
-              className="btn btn-link"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseExample"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              <i className="bi bi-caret-down-fill"></i>
-            </button>
-          </h2>
-          <p>🇺🇾 Montevideo, Uruguay</p>
+        <div className="d-flex align-items-center">
+          <img
+            src={`https://ui-avatars.com/api/?name=${usuario?.nome || "Usuário"}&background=2b87ae&color=fff`} // Dynamically generate avatar
+            alt={usuario?.nome || "Usuário"}
+            className="rounded-circle"
+            width="100"
+            height="100"
+          />
+          <div className="ms-3 d-flex flex-column justify-content-center">
+            <h2 className="d-flex align-items-center">
+              {usuario?.nome || "Usuário"} {/* Exibe o nome do usuário ou "Usuário" */}
+              <button
+                className="btn btn-link ms-2"
+                type="button"
+                onClick={() => setShowButtons(!showButtons)} // Toggle card visibility
+              >
+                <i className={`bi ${showButtons ? "bi-caret-up-fill" : "bi-caret-down-fill"}`}></i>
+              </button>
+            </h2>
+            {showButtons && ( // Conditionally render the expanding card
+              <div
+                className="card mt-2 p-3"
+                style={{
+                  width: "300px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <button
+                  className="btn btn-primary mb-2"
+                  type="button"
+                  onClick={() => alert("Cadastrar Cartão clicado!")}
+                >
+                  Cadastrar Cartão
+                </button>
+                <button
+                  className="btn btn-danger"
+                  type="button"
+                  onClick={() => alert("Excluir Cartão clicado!")}
+                >
+                  Excluir Cartão
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="d-flex justify-content-start d-flex gap-5">
@@ -160,10 +189,7 @@ const Perfil = () => {
               }}
             >
               {randomGames.map((item) => {
-                const primeiraImagem = Array.isArray(item.imagem)
-                  ? item.imagem[0]
-                  : item.imagem; // Adjusted logic to handle array or single image
-
+                const primeiraImagem = Array.isArray(item.imagem) ? item.imagem[0] : item.imagem; // Handle array of images
                 return (
                   <div
                     id="cardsJogos"
@@ -175,7 +201,7 @@ const Perfil = () => {
                     }}
                   >
                     <img
-                      src={primeiraImagem} // Use the adjusted logic for the image
+                      src={primeiraImagem} // Use primeiraImagem here
                       alt={item.titulo}
                       className="me-3 rounded"
                       style={{
