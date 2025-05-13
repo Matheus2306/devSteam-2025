@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NotFound from "./NotFound";
 import HeaderLogs from "../components/HeaderLogs";
 import Create from "../components/Create";
+import CreateCatego from "../components/CreateCatego";
 
 const GerirADM = () => {
   const [usuario, setUsuario] = useState("");
@@ -34,7 +35,6 @@ const GerirADM = () => {
         valido: true,
       };
 
-      //verifica se o cupom ja existe
       const cupomExistente = cupons.find(
         (cupom) => cupom.nome === novoCupom.nome
       );
@@ -65,12 +65,22 @@ const GerirADM = () => {
     localStorage.setItem("devCupom", JSON.stringify(novosCupons)); // Atualiza o localStorage
   };
 
+
   return (
     <div>
       {usuario.Role === "ADM" ? (
         <div className="w-100 vh-100">
           <HeaderLogs />
-          <Create title={"Cupom"}  handleCreate={handleCreate} deleteCupons={deleteCupons} toggleValidade={toggleValidade} cupom={cupons}/>
+          <div className="d-flex h-100 justify-content-around">
+            <Create
+              title={"Cupom"}
+              handleCreate={handleCreate}
+              deleteCupons={deleteCupons}
+              toggleValidade={toggleValidade}
+              cupom={cupons}
+            />
+            <CreateCatego />
+          </div>
         </div>
       ) : (
         <NotFound />
