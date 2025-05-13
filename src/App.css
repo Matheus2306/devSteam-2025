@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
+html, body {
+  height: 100%; /* Ensure the body takes full height */
+}
+
 body {
   font-family: "Inter", sans-serif;
   background-color: #1b2838;
@@ -7,6 +11,12 @@ body {
   padding: 0;
   box-sizing: border-box;
   color: #fff;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; /* Ensure the root container takes full height */
 }
 
 .buscar,
@@ -148,6 +158,26 @@ input.form-control:focus {
 .card {
   background-color: #344654 !important;
   border: none;
+  max-width: 1000px; /* Increased width */
+  padding: 30px; /* Increased padding */
+}
+
+.card .list-group-item {
+  font-size: 1.2rem; /* Increased font size for list items */
+  padding: 20px; /* Increased padding for list items */
+}
+
+.card .btn {
+  font-size: 1rem; /* Increased button font size */
+  padding: 10px 20px; /* Adjusted button padding */
+}
+
+.card h3 {
+  font-size: 2rem; /* Increased font size for the title */
+}
+
+.card p {
+  font-size: 1.1rem; /* Increased font size for the subtitle */
 }
 #amigos {
   background-color: #343a40; /* Dark background color */
@@ -456,6 +486,14 @@ input.form-control:focus {
   background-clip: text;
   color: transparent;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  margin-top: auto; /* Push the footer to the bottom */
+  background-color: #1b2838;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .create{

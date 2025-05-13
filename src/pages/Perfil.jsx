@@ -137,7 +137,7 @@ const Perfil = () => {
                 <button
                   className="btn btn-primary mb-2"
                   type="button"
-                  onClick={() => alert("Editar Perfil clicado!")} // New option for editing profile
+                  onClick={() => navigate("/editar-perfil")} // New option for editing profile
                 >
                   Editar Perfil
                 </button>
