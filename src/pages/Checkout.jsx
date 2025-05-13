@@ -40,8 +40,22 @@ const Checkout = () => {
       return;
     } else {
       alert("Compra confirmada! Obrigado 😊");
-      localStorage.removeItem("devcarrinho");
-      navigate("/");
+
+      try {
+        // Armazena as compras no localStorage
+        const comprasAnteriores = JSON.parse(localStorage.getItem("devcompras")) || {};
+        const usuarioCompras = comprasAnteriores[usuarioLogado.nome] || [];
+        comprasAnteriores[usuarioLogado.nome] = [...usuarioCompras, ...carrinho];
+        localStorage.setItem("devcompras", JSON.stringify(comprasAnteriores));
+
+        // Limpa o carrinho
+        localStorage.removeItem("devcarrinho");
+        setCarrinho([]);
+        navigate("/");
+      } catch (error) {
+        console.error("Erro ao salvar as compras no localStorage:", error);
+        alert("Ocorreu um erro ao processar sua compra. Tente novamente.");
+      }
     }
   };
 

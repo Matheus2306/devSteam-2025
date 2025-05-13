@@ -83,7 +83,7 @@ const GameDescription = () => {
   const primeiraImagem = Array.isArray(CardItem.imagem)
     ? CardItem.imagem[0]
     : CardItem.imagem;
-
+  
   return (
     <div className="w-100 h-100">
       <Header contadorJogos={carrinhoItem.length} />
