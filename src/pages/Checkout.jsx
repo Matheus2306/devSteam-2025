@@ -39,7 +39,7 @@ const Checkout = () => {
       alert("Você precisa estar logado para finalizar a compra.");
       return;
     } else {
-      alert("Compra confirmada! Obrigado 😊");
+      
 
       try {
         // Armazena as compras no localStorage
@@ -51,7 +51,7 @@ const Checkout = () => {
         // Limpa o carrinho
         localStorage.removeItem("devcarrinho");
         setCarrinho([]);
-        navigate("/");
+        navigate("/pedido-confirmado");
       } catch (error) {
         console.error("Erro ao salvar as compras no localStorage:", error);
         alert("Ocorreu um erro ao processar sua compra. Tente novamente.");
@@ -104,10 +104,10 @@ const Checkout = () => {
             className="card border-0 shadow-sm rounded-4 mb-4"
             style={{ background: "#d9d9d9" }}
           >
-            <div className="card-header border-bottom-0 py-3">
+            <div style={{ backgroundColor: "#BDC3C7" }} className="card-header border-bottom-0 py-3">
               <h4 className="mb-0 fw-bolder">Meu Carrinho</h4>
             </div>
-            <div className="card-body p-4">
+            <div style={{backgroundColor: "#AAB7B8"}} className="card-body p-4">
               {carrinho.length === 0 ? (
                 <div className="text-center py-5">
                   <i className="bi bi-cart-x fs-1 text-muted"></i>
@@ -206,10 +206,10 @@ const Checkout = () => {
             className="card border-0 shadow-sm rounded-4"
             style={{ background: "#d9d9d9" }}
           >
-            <div className="card-header border-bottom-0 py-3">
+            <div style={{backgroundColor: "#BDC3C7"}} className="card-header border-bottom-0 py-3">
               <h4 className="mb-0 fw-bolder">Resumo do Pedido</h4>
             </div>
-            <div className="card-body p-4 pt-3">
+            <div style={{ backgroundColor: "#AAB7B8" }} className="card-body p-4 pt-3">
               {/* Seção do cupom de desconto - AGORA NO TOPO */}
               <div className="mb-3">
                 <label htmlFor="cupom" className="form-label mb-2">
@@ -293,6 +293,7 @@ const Checkout = () => {
                 className="btn btn-success desconto border-0 text-light w-100 py-3 fw-bold"
                 onClick={handleConfirmar}
                 disabled={carrinho.length === 0}
+  
               >
                 Finalizar Compra
               </button>
@@ -303,7 +304,7 @@ const Checkout = () => {
                   borderColor: "#2a475e",
                   color: !isHovered && "#fff",
                 }}
-                className="btn btn-outline-secondary w-100 mt-2"
+                className="btn btn-secondary w-100 mt-2"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={() => navigate("/")}
