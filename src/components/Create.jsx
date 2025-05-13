@@ -2,8 +2,6 @@ import React from "react";
 import ModalCreate from "./ModalCreate";
 
 const Create = (props) => {
- 
-
   return (
     <div
       className="w-25 h-75 overflow-y-hidden create m-3 rounded-3"
@@ -31,21 +29,25 @@ const Create = (props) => {
         style={{ maxHeight: "690px" }}
       >
         {props.cupom.length === 0 ? (
-          <h3 className="text-white fs-5 my-2">Nenhum {props.title} cadastrado</h3>
+          <h3 className="text-white fs-5 my-2">
+            Nenhum {props.title} cadastrado
+          </h3>
         ) : (
           props.cupom.map((cupom, index) => (
             <div
               key={index}
               className="w-100 d-flex justify-content-between cupons my-2 align-items-center rounded-3 p-2 my-2"
             >
-              <h4 className="text-white mx-3 fs-5">{cupom.nome}</h4>
-              <h4 className="text-white mx-3">
-                {cupom.validade === "" ? (
-                  <span className=""></span>
-                ) : (
-                  <span className="fs-6 text-light">{cupom.validade}</span>
-                )}
-              </h4>
+              <div>
+                <h4 className="text-white mx-3 fs-5">{cupom.nome}</h4>
+                <h5 className="text-white mx-3">
+                  {cupom.validade === "" ? (
+                    <span className=""></span>
+                  ) : (
+                    <span className="fs-6 text-light">{cupom.validade}</span>
+                  )}
+                </h5>
+              </div>
               <div className="d-flex align-items-center mx-5 gap-3">
                 <span className="text-light bg-success p-2 rounded-1">
                   {cupom.desconto}%
