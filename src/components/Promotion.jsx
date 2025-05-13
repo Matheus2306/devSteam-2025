@@ -3,8 +3,6 @@ import PromoCard from "./PromoCard";
 import { GlobalContext } from "../main.jsx";
 import HeroCarousel from "./HeroCarousel.jsx";
 
-
-
 const Promotion = (props) => {
   const [aleatorio, setAleatorio] = useState([]);
   const { formatarMoeda } = useContext(GlobalContext);
@@ -62,7 +60,6 @@ const Promotion = (props) => {
         desconto: 10,
         imagem: [
           "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg", // Imagem principal
-          "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg", // Imagem adicional 1
         ],
         descricao:
           "Mergulhe no mundo bruxo de Hogwarts no século XIX. Crie seu próprio bruxo e descubra segredos mágicos.",
@@ -116,7 +113,6 @@ const Promotion = (props) => {
 
     setAleatorio(aleatorioJogos);
   }, [games]);
-
 
   return (
     <div className="w-100 h-100">
