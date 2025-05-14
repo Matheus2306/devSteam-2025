@@ -2,36 +2,37 @@ import React, { useEffect, useState } from "react";
 import ModalcreateCategoria from "./ModalcreateCategoria";
 
 const CreateCatego = (props) => {
-  const [categorias, setCategorias] = useState([]);
+  const [categorias, setcategorias] = useState([]);
 
-  // Buscar as categorias no localStorage ao carregar o componente
+  //busca os cupons no localStorage ao carregar o componente
   useEffect(() => {
-    const categoriasExistentes = JSON.parse(localStorage.getItem("devCategoria")) || [];
-    setCategorias(categoriasExistentes);
+    const categoriasExistentes =
+      JSON.parse(localStorage.getItem("devCategoria")) || [];
+    setcategorias(categoriasExistentes);
   }, []);
-
-  // Atualizar o estado e o localStorage ao criar uma nova categoria
+  //atualiza o estado e o localStorage ao criar uma nova categoria
   const handleCreate = (data) => {
-    const novaCategoria = { ...data };
-    const novasCategorias = [...categorias, novaCategoria];
-    setCategorias(novasCategorias);
-    localStorage.setItem("devCategoria", JSON.stringify(novasCategorias));
-  };
+    //verifica se os campos estão preenchidos
+    if (!data.input1) {
+      alert("Preencha todos os campos!");
+    } else {
+      const novaCategoria = {
+        nome: data.input1,
+        valido: true,
+      };
 
-  // Atualizar o estado e o localStorage ao excluir uma categoria
-  const deleteCategoria = (index) => {
-    const novasCategorias = [...categorias];
-    novasCategorias.splice(index, 1);
-    setCategorias(novasCategorias);
-    localStorage.setItem("devCategoria", JSON.stringify(novasCategorias));
-  };
-
-  // Alternar a validade de uma categoria
-  const toggleValidade = (index) => {
-    const novasCategorias = [...categorias];
-    novasCategorias[index].valido = !novasCategorias[index].valido;
-    setCategorias(novasCategorias);
-    localStorage.setItem("devCategoria", JSON.stringify(novasCategorias));
+      const categoriaExistente = categorias.find(
+        (categoria) => categoria.nome === novaCategoria.nome
+      );
+      if (categoriaExistente) {
+        alert("Essa categoria já existe!");
+        return;
+      } else {
+        const novasCategorias = [...categorias, novaCategoria];
+        setcategorias(novasCategorias);
+        localStorage.setItem("devCategoria", JSON.stringify(novasCategorias));
+      }
+    }
   };
 
   return (
@@ -70,12 +71,6 @@ const CreateCatego = (props) => {
             >
               <h4 className="text-white mx-3 fs-5">{categoria.nome}</h4>
               <div className="d-flex align-items-center mx-5 gap-3">
-                <input
-                  type="checkbox"
-                  checked={categoria.valido}
-                  onChange={() => toggleValidade(index)}
-                  className="form-check-input mx-2 shadow-none bg-dark border-0 fs-5 m-0"
-                />
                 <i
                   className="bi bi-trash text-danger fs-5"
                   role="button"
