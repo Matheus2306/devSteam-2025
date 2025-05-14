@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Footer from "../components/Footer";
 import HeaderLogs from "../components/HeaderLogs";
@@ -8,17 +8,35 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Verifica se já existe algum cadastro no localStorage
+    const cadastros = JSON.parse(localStorage.getItem("devCadastro")) || [];
+    // Adiciona a conta padrão de administrador se ainda não existir
+    const admExists = cadastros.some(
+      (cadastro) => cadastro.email === "adm@adm.com"
+    );
+    if (!admExists) {
+      cadastros.push({
+        nome: "ADM",
+        email: "adm@adm.com",
+        senha: "1234",
+        Role: "ADM",
+      });
+      localStorage.setItem("devCadastro", JSON.stringify(cadastros));
+    }
+  }, []);
+
   const handleLogin = (e) => {
     e.preventDefault();
 
     // Recupera todos os cadastros do localStorage
-    const cadastros = JSON.parse(localStorage.getItem("devCadastro")) ;
+    const cadastros = JSON.parse(localStorage.getItem("devCadastro"));
 
     // Verifica se o e-mail e a senha correspondem a algum cadastro
     const usuarioValido = cadastros.find(
       (cadastro) => cadastro.email === email && cadastro.senha === senha
     );
-    //salva o usuário logado no localStorage
+    // Salva o usuário logado no localStorage
     localStorage.setItem("devlogin", JSON.stringify(usuarioValido));
     // Verifica se o usuário é um administrador
     const isADM = usuarioValido && usuarioValido.Role === "ADM";
